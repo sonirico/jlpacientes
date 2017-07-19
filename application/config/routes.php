@@ -49,9 +49,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'patients';
-$route['patients/all'] = 'patients/get_all_patients';
-$route['patients/save'] = 'patients/create_patient';
+
+$route['default_controller'] = 'offsicks/index';
+
+// Teams
+$route['teams'] = 'teams/index';
+
+
+$route['teams/create'] = 'teams/create';
+$route['teams/(:num)/edit'] = 'teams/edit/$1';
+$route['teams/(:num)/update'] = 'teams/update/$1';
+$route['teams/(:num)/delete'] = 'teams/destroy/$1';
+$route['teams/store'] = 'teams/store';
+
+// Teams API
+$route['api/teams'] = 'teams/all';
+$route['api/teams/(:num)/delete'] = 'teams/destroy/$1';
+
+
+$route['offsick/create'] = 'offsicks/create';
+$route['offsicks/store'] = 'offsicks/store';
+
+$route['offsicks/all'] = 'offsicks/get_all_offsicks';
+
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

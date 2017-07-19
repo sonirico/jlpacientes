@@ -1,0 +1,13 @@
+#teams-container {
+    padding-top: 1em;
+}
+
+#teams-container #teams-table {
+    
+    border-collapse: collapse !important;
+}
+
+.dataTables_wrapper {
+    padding-left: 0px;
+    padding-right: 0px;
+}
