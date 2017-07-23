@@ -24,21 +24,21 @@ create table teams (
 
 create table players (
     id integer not null auto_increment primary key,
-    id_position integer,
-    id_team integer not null references teams(id) on delete set null,
+    position integer,
+    team integer not null references teams(id) on delete set null,
 
     nif varchar(10) not null unique,
-    birthday date,
+    birthday integer,
     `name` varchar (255) not null,
     surname varchar (255),
     address varchar (255),
-    phone varchar (20)
+    contact varchar (255)
 );
 
 
 create table injuries (
     id integer not null auto_increment primary key,
-    id_player integer not null references players(id) on delete cascade,
+    player integer not null references players(id) on delete cascade,
 
     type integer not null,
     description TEXT,
@@ -49,7 +49,7 @@ create table injuries (
 
 create table nutrition (
     id integer not null auto_increment primary key,
-    id_player integer not null references players(id) on delete cascade,
+    player integer not null references players(id) on delete cascade,
 
     diet_keen boolean not null default true,
     imc integer,
@@ -63,7 +63,7 @@ create table nutrition (
 
 create table phth_sessions (
     id integer not null auto_increment primary key,
-    id_player integer not null references players(id) on delete cascade,
+    player integer not null references players(id) on delete cascade,
 
     type integer,
     scheduled_at datetime,
@@ -73,7 +73,7 @@ create table phth_sessions (
 
 create table offsicks (
     id integer not null auto_increment primary key,
-    id_player integer not null references players(id) on delete cascade,
+    player integer not null references players(id) on delete cascade,
 
     created_at datetime default 0,
     happened_at datetime,

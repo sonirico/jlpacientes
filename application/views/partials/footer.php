@@ -12,6 +12,8 @@
 
         <!-- Editor -->
         <script src="/assets/lib/tinymce/js/tinymce/tinymce.min.js" ></script>
+
+        <script src="/assets/js/utils.js" ></script>
   
         <script>tinymce.init({ selector:'textarea' });</script>
         

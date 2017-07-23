@@ -66,6 +66,20 @@ $route['teams/store'] = 'teams/store';
 $route['api/teams'] = 'teams/all';
 $route['api/teams/(:num)/delete'] = 'teams/destroy/$1';
 
+// Players
+$route['players'] = 'players/index';
+
+
+$route['players/create'] = 'players/create';
+$route['players/(:num)/edit'] = 'players/edit/$1';
+$route['players/(:num)/update'] = 'players/update/$1';
+$route['players/(:num)/delete'] = 'players/destroy/$1';
+$route['players/store'] = 'players/store';
+
+// Players API
+$route['api/players'] = 'players/all';
+$route['api/players/(:num)/delete'] = 'players/destroy/$1';
+
 
 $route['offsick/create'] = 'offsicks/create';
 $route['offsicks/store'] = 'offsicks/store';

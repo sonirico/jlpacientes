@@ -8,12 +8,12 @@ class Player extends CI_Model {
     public $nif;
     public $birthdate;
     public $address;
-    public $phone;
+    public $contact;
 
     public $id_position;
     public $id_team;
     
-    private $table_name = "teams";
+    private $table_name = "players";
 
     public function get_by_id ($id, $assoc = true)
     {
@@ -33,17 +33,23 @@ class Player extends CI_Model {
 
     public function insert () {
 
-        $this->name = $this->input->post('name');
+        $this->load->helper('custom_date');
 
-        return $this->db->insert($this->table_name, $this);
+        $data = $this->input->post();
+        $data['birthday'] = datestr_to_unix($data['birthday']);
+
+        return $this->db->insert($this->table_name, $data);
     }
 
     public function update ($id) {
 
+        $this->load->helper('custom_date');
+
+        $data = $this->input->post();
+        $data['birthday'] = datestr_to_unix($data['birthday']);
+
         $this->db->where('id', $id);
-        $this->db->update($this->table_name, [
-            'name' => $this->input->post('name')
-        ]);
+        $this->db->update($this->table_name, $data);
 
         return $this->db->affected_rows();
     }
@@ -62,5 +68,15 @@ class Player extends CI_Model {
         
         return $query->result_array();
 
+    }
+
+    public function all_with_teams () {
+        $this->db->select('players.*, teams.name as team_name');
+        $this->db->from('players');
+        $this->db->join('teams', 'teams.id = players.team');
+
+        $query = $this->db->get();
+
+        return $query->result_array();
     }
 }

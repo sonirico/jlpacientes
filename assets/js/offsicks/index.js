@@ -61,7 +61,7 @@ patients = (function () {
                         'orderable': false,
                         'createdCell': function (cell, rowData, row, col) {
                             $(cell).html(
-                                $('#button-container').clone().removeAttr('id').removeClass('template')
+                                utils.template('#button-container')
                             );
                         }
                     }

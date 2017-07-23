@@ -32,7 +32,9 @@ class Teams extends CI_Controller {
         
         if (false === $this->form_validation->run('teams/update'))
         {
-            $this->load->view('teams/edit');
+            $this->load->view('teams/edit', [
+                'id' => $id
+            ]);
         } 
         else 
         {

@@ -1,0 +1,13 @@
+#players-container {
+    padding-top: 1em;
+}
+
+#players-container #players-table {
+    
+    border-collapse: collapse !important;
+}
+
+.dataTables_wrapper {
+    padding-left: 0px;
+    padding-right: 0px;
+}
