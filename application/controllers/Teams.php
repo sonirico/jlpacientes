@@ -17,12 +17,14 @@ class Teams extends CI_Controller {
 
     public function create () {
         $this->load->helper('form', 'url');
+        $this->load->library('user_agent');
 
         $this->load->view('teams/create');
     }
 
     public function edit ($id) {
         $data = $this->team->get_by_id($id);
+        $this->load->library('user_agent');
 
         $this->load->view('teams/edit', $data);
     }
@@ -32,9 +34,7 @@ class Teams extends CI_Controller {
         
         if (false === $this->form_validation->run('teams/update'))
         {
-            $this->load->view('teams/edit', [
-                'id' => $id
-            ]);
+            $this->edit($id);
         } 
         else 
         {
@@ -46,7 +46,7 @@ class Teams extends CI_Controller {
             else
             {
                 $this->session->set_flashdata('status', 'error');
-                $this->session->set_flashdata('status', 'Error en la edición del equipo');
+                $this->session->set_flashdata('message', 'Error en la edición del equipo');
             }
 
             redirect('/teams/' . $id . '/edit/');
@@ -58,7 +58,7 @@ class Teams extends CI_Controller {
         
         if (false === $this->form_validation->run('teams/store'))
         {
-            $this->load->view('teams/create');
+            $this->create();
         } 
         else 
         {

@@ -31,4 +31,7 @@
     <button type="submit" class="btn btn-primary" id="team-create">
         Enviar
     </button>
+    <?php $this->load->view('partials/button_back', [
+            'back_uri' => 'teams/'
+    ]); ?>
 </div>

@@ -6,7 +6,7 @@ class Player extends CI_Model {
     public $name;
     public $surname;
     public $nif;
-    public $birthdate;
+    public $birthday;
     public $address;
     public $contact;
 

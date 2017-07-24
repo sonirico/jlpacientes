@@ -18,6 +18,7 @@ class Players extends CI_Controller {
     public function create () {
         $this->load->helper('form', 'url');
         $this->load->model('team');
+        $this->load->library('user_agent');
         
         $this->load->view('players/create', [
             'teams' => $this->team->all()
@@ -28,6 +29,7 @@ class Players extends CI_Controller {
         $player = $this->player->get_by_id($id);
 
         $this->load->model('team');
+        $this->load->library('user_agent');
 
         $this->load->view('players/edit',
             array_merge(
@@ -42,12 +44,7 @@ class Players extends CI_Controller {
         
         if (false === $this->form_validation->run('players/update'))
         {
-            $this->load->model('team');
-        
-            $this->load->view('players/edit', [
-                'teams' => $this->team->all(),
-                'id' => $id
-            ]);
+            $this->edit($id);
         } 
         else 
         {
@@ -71,11 +68,7 @@ class Players extends CI_Controller {
         
         if (false === $this->form_validation->run('players/store'))
         {
-            $this->load->model('team');
-        
-            $this->load->view('players/create', [
-                'teams' => $this->team->all()
-            ]);
+            $this->create();
         } 
         else 
         {
