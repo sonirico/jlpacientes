@@ -1,13 +1,22 @@
-#players-container {
+#players-container
+{
     padding-top: 1em;
 }
 
-#players-container #players-table {
+#players-container #players-table
+{
     
     border-collapse: collapse !important;
 }
 
-.dataTables_wrapper {
-    padding-left: 0px;
-    padding-right: 0px;
+/*.dataTables_wrapper*/
+/*{*/
+    /*padding-left: 0px;*/
+    /*padding-right: 0px;*/
+/*}*/
+
+
+#players-container #players-table tr.player-offsick
+{
+    background-color: #FFBA8F;
 }

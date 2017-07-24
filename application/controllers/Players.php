@@ -105,10 +105,59 @@ class Players extends CI_Controller {
         $this->output
             ->set_status_header(200)
             ->set_content_type('application/json', 'utf-8')
-            ->set_output(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES))
+            ->set_output(json_encode($response))
             ->_display();
         exit;
     }
+
+    public function offsick ($id)
+    {
+        $response = $this->player->offsick($id);
+
+        if (intval($response) > 0) {
+            $this->output
+                ->set_status_header(200)
+                ->set_content_type('application/json', 'utf-8')
+                ->set_output(json_encode($response))
+                ->_display();
+        }
+        else
+        {
+            $this->output
+                ->set_status_header(404)
+                ->set_content_type('application/json', 'utf-8')
+                ->set_output(json_encode($response))
+                ->_display();
+        }
+
+
+        exit;
+    }
+
+    public function upsick ($id)
+    {
+        $response = $this->player->upsick($id);
+
+        if (intval($response) > 0) {
+            $this->output
+                ->set_status_header(200)
+                ->set_content_type('application/json', 'utf-8')
+                ->set_output(json_encode($response))
+                ->_display();
+        }
+        else
+        {
+            $this->output
+                ->set_status_header(404)
+                ->set_content_type('application/json', 'utf-8')
+                ->set_output(json_encode($response))
+                ->_display();
+        }
+
+
+        exit;
+    }
+
 
     public function birthday_check ($str) {
         $date = date_create_from_format('d/m/Y', $str);

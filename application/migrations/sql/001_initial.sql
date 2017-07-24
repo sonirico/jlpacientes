@@ -1,3 +1,5 @@
+# noinspection SqlNoDataSourceInspectionForFile
+
 
 drop table if exists injuries;
 drop table if exists nutrition;
@@ -32,7 +34,8 @@ create table players (
     `name` varchar (255) not null,
     surname varchar (255),
     address varchar (255),
-    contact varchar (255)
+    contact varchar (255),
+    offsick boolean default false
 );
 
 

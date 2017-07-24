@@ -79,6 +79,8 @@ $route['players/store'] = 'players/store';
 // Players API
 $route['api/players'] = 'players/all';
 $route['api/players/(:num)/delete'] = 'players/destroy/$1';
+$route['api/players/(:num)/offsick'] = 'players/offsick/$1';
+$route['api/players/(:num)/upsick'] = 'players/upsick/$1';
 
 
 $route['offsick/create'] = 'offsicks/create';

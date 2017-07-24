@@ -62,6 +62,24 @@ class Player extends CI_Model {
         return $this->db->affected_rows();
     }
 
+    public function offsick ($id) {
+        $this->db->where('id', $id);
+        $this->db->update($this->table_name, [
+            'offsick' => true
+        ]);
+
+        return $this->db->affected_rows();
+    }
+
+    public function upsick ($id) {
+        $this->db->where('id', $id);
+        $this->db->update($this->table_name, [
+            'offsick' => false
+        ]);
+
+        return $this->db->affected_rows();
+    }
+
     public function all () {
 
         $query = $this->db->get($this->table_name);

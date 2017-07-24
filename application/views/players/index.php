@@ -15,7 +15,7 @@
             <?php $this->load->view('partials/status'); ?>
 
             <div class="table-responsive" >
-                <table id="players-table" class="table table-bordered"  >
+                <table id="players-table" class="table"  >
                     <tbody>
                         <tr>
                             <td>Cargando jugadores...</td>
@@ -29,15 +29,21 @@
 
 <!-- Templates -->
 <div class="template" id="player-buttons-container" >
-    <button class="btn btn-default btn-sm btn-action" data-action="edit" >
+    <button class="btn btn-default btn-sm btn-action btn-edit" data-action="edit" >
         <i class="fa fa-pencil" aria-hidden="true" ></i>
     </button>
-    <button class="btn btn-danger btn-sm btn-action" data-action="delete" >
+    <button class="btn btn-default btn-sm btn-action btn-offsick" data-action="offsick" >
+        <i class="fa fa-thumbs-o-down" aria-hidden="true" ></i>
+    </button>
+    <button class="btn btn-success btn-sm btn-action btn-upsick" data-action="upsick" >
+        <i class="fa fa-thumbs-o-up" aria-hidden="true" ></i>
+    </button>
+    <button class="btn btn-danger btn-sm btn-action btn-delete" data-action="delete" >
         <i class="fa fa-trash" aria-hidden="true" ></i>
     </button>
 </div>
 
-<!-- Modal -->
+<!-- Modal delete player -->
 <div class="modal fade" id="delete-player-modal" tabindex="-1" role="dialog" 
     aria-labelledby="delete-player-title" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -63,6 +69,33 @@
     </div>
   </div>
 </div>
+
+<!-- Modal offsick player -->
+<div class="modal fade" id="offsick-player-modal" tabindex="-1" role="dialog"
+     aria-labelledby="offsick-player-title" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="offsick-player-title">Cursar baja</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Estás a punto de dar de baja a <em class="offsick-player-name" ></em>.
+                </p>
+
+                <p>¿Desea continuar?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-warning offsick-player-button">Cursar baja</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script type="text/javascript" >
     var positions = <?php echo json_encode($this->config->item('positions')); ?>;

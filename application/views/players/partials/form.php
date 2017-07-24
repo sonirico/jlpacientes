@@ -138,6 +138,6 @@
         Enviar
     </button>
     <?php $this->load->view('partials/button_back', [
-        'back_uri' => 'teams/'
+        'back_uri' => 'players/'
     ]); ?>
 </div>

@@ -5,7 +5,8 @@ teams = (function () {
     var players = [];
 
     var tableObj = {};
-    var modal = $('#delete-player-modal');
+    var deletionModal = $('#delete-player-modal');
+    var offsickModal = $('#offsick-player-modal');
 
     var loadTable = function (data, reload) {
         var reload = reload || false;
@@ -126,13 +127,24 @@ teams = (function () {
                         'visible': true,
                         'orderable': false,
                         'createdCell': function (cell, cellData, rowData, row, col) {
-                            $(cell).html(
-                                utils.template('#player-buttons-container')
-                            );
+                            var buttons = utils.template('#player-buttons-container');
+
+                            if (Boolean(parseInt(rowData.offsick))) {
+                                buttons.find('.btn-offsick').remove();
+                            } else {
+                                buttons.find('.btn-upsick').remove();
+                            }
+
+                            $(cell).html(buttons);
                         }
                     }
                 ],
                 'data': data,
+                'rowCallback': function (row, data, index) {
+                    if (Boolean(parseInt(data.offsick))) {
+                        $(row).addClass('player-offsick');
+                    }
+                },
                 'initComplete': function () {
                     resolve();
                 },
@@ -194,20 +206,45 @@ teams = (function () {
 
             switch (action) {
                 case "delete":
-                    modal.data('player', player);
-                    modal.find('.deletion-player-name').text(player.name);
-                    modal.modal('show');
+                    deletionModal.data('player', player);
+                    deletionModal.find('.deletion-player-name').text(player.name);
+                    deletionModal.modal('show');
                     break;
 
                 case "edit":
                     window.document.location = "/players/" + player.id + "/edit/";
+                    break;
+
+                case "offsick":
+                    offsickModal.data('player', player);
+                    offsickModal.find('.offsick-player-name').text(player.name);
+                    offsickModal.modal('show');
+                    break;
+
+                case "upsick":
+
+                    $.ajax({
+                        'url': '/api/players/' + player.id + '/upsick/',
+                        'method': 'post',
+                        'dataType': 'json',
+                        'data': {
+                            'csrf_token': $('[name="csrf_token"]').attr('content').trim()
+                        }
+                    }).done(function (data) {
+                        that.reload();
+                    }).fail(function (jqXHR, textStatus) {
+                        that.reload();
+                    }).always(function () {
+                    });
+
+                    break;
             }
         });
 
-        // Team deletion
-        modal.find('.delete-player-button').click(function () {
+        // Player deletion
+        deletionModal.find('.delete-player-button').click(function () {
             $.ajax({
-                'url': '/api/players/' + modal.data('player').id + '/delete/',
+                'url': '/api/players/' + deletionModal.data('player').id + '/delete/',
                 'method': 'post',
                 'dataType': 'json',
                 'data': {
@@ -220,9 +257,30 @@ teams = (function () {
             }).fail(function (jqXHR, textStatus) {
                 that.reload();
             }).always(function () {
-                modal.modal('hide');
+                deletionModal.modal('hide');
             });
         });
+
+        // Player deletion
+        offsickModal.find('.offsick-player-button').click(function () {
+            $.ajax({
+                'url': '/api/players/' + offsickModal.data('player').id + '/offsick/',
+                'method': 'post',
+                'dataType': 'json',
+                'data': {
+                    'csrf_token': $('[name="csrf_token"]').attr('content').trim()
+                }
+            }).done(function (data) {
+
+                that.reload();
+            }).fail(function (jqXHR, textStatus) {
+                that.reload();
+            }).always(function () {
+                offsickModal.modal('hide');
+            });
+        });
+
+
     };
 
     return this;
