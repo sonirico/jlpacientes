@@ -5,7 +5,7 @@ teams = (function () {
     var players = [];
 
     var tableObj = {};
-    var modal = $('#delete-team-modal');
+    var modal = $('#delete-player-modal');
 
     var loadTable = function (data, reload) {
         var reload = reload || false;
@@ -170,7 +170,7 @@ teams = (function () {
     };
 
     this.reload = function () {
-        loadData(dat)
+        loadData()
         .done(function (data) {
             loadTable(data, true)
                 .then(function (data) {
@@ -205,9 +205,9 @@ teams = (function () {
         });
 
         // Team deletion
-        modal.find('.delete-team-button').click(function () {
+        modal.find('.delete-player-button').click(function () {
             $.ajax({
-                'url': '/api/teams/' + modal.data('team').id + '/delete/',
+                'url': '/api/players/' + modal.data('player').id + '/delete/',
                 'method': 'post',
                 'dataType': 'json',
                 'data': {

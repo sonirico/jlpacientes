@@ -137,8 +137,7 @@
     <button type="submit" class="btn btn-primary" id="team-create">
         Enviar
     </button>
-    <?php $referrer = $this->agent->is_referral() ? $this->agent->referrer() : base_url('/players/');  ?>
-    <a href="<?php echo $referrer; ?>" role="button" class="btn btn-warning"  >
-        Volver
-    </a>
+    <?php $this->load->view('partials/button_back', [
+        'back_uri' => 'teams/'
+    ]); ?>
 </div>
