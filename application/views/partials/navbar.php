@@ -4,11 +4,9 @@
     aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <a class="navbar-brand" href="/">
-    <img src="/assets/img/logo.png" width="30" height="30" 
-        class="d-inline-block align-top" alt="Logo">
-    JLPacientes
-  </a>
+    
+  <a class="navbar-brand" href="/">JLPacientes</a>
+
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
       <li class="nav-item dropdown active">
