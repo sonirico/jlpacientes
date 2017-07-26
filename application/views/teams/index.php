@@ -54,6 +54,10 @@
   </div>
 </div>
 
+<script type="text/javascript" >
+    var IMG_BASE_URL = "<?php echo base_url('assets/img/teams/'); ?>";
+</script>
+
 <?php $this->load->view('partials/footer', ['extra_js' => [
     '/assets/js/teams/index.js'    
 ]]); ?>

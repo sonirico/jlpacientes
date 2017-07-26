@@ -24,19 +24,28 @@ class Team extends CI_Model {
         }
     }
 
-    public function insert () {
+    public function insert ($logo_name = null) {
 
         $this->name = $this->input->post('name');
+        $this->logo = $logo_name;
 
         return $this->db->insert($this->table_name, $this);
     }
 
-    public function update ($id) {
+    public function update ($id, $logo_name = null) {
 
         $this->db->where('id', $id);
-        $this->db->update($this->table_name, [
+
+        $data = [
             'name' => $this->input->post('name')
-        ]);
+        ];
+
+        if ($logo_name)
+        {
+            $data['logo'] = $logo_name;
+        }
+
+        $this->db->update($this->table_name, $data);
 
         return $this->db->affected_rows();
     }

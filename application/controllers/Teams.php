@@ -38,7 +38,27 @@ class Teams extends CI_Controller {
         } 
         else 
         {
-            if ($this->team->update($id))
+
+            $logo_name = null;
+
+            if (isset($_FILES['logo']))
+            {
+                $result = $this->handle_logo();
+
+                if ($result['success'])
+                {
+                    $logo_name = $result['data']['file_name'];
+                }
+                else
+                {
+                    $this->session->set_flashdata('status', 'error');
+                    $this->session->set_flashdata('message', $result['errors']);
+
+                    redirect('/teams/' . $id . '/edit/');
+                }
+            }
+
+            if ($this->team->update($id, $logo_name))
             {
                 $this->session->set_flashdata('status', 'success');
                 $this->session->set_flashdata('message', 'Equipo editado satisfactoriamente');
@@ -60,20 +80,34 @@ class Teams extends CI_Controller {
         {
             $this->create();
         } 
-        else 
+        else
         {
-            if ($this->team->insert())
+            $result = $this->handle_logo();
+
+            if ($result['success'])
             {
-                $this->session->set_flashdata('status', 'success');
-                $this->session->set_flashdata('message', 'Equipo creado satisfactoriamente');
+                $logo = $result['data']['file_name'];
+
+                if ($this->team->insert($logo))
+                {
+                    $this->session->set_flashdata('status', 'success');
+                    $this->session->set_flashdata('message', 'Equipo creado satisfactoriamente');
+                }
+                else
+                {
+                    $this->session->set_flashdata('status', 'error');
+                    $this->session->set_flashdata('message', 'Error en la creación del equipo');
+                }
+
+                redirect('/teams/');
             }
             else
             {
                 $this->session->set_flashdata('status', 'error');
-                $this->session->set_flashdata('status', 'Error en la creación del equipo');
-            }
+                $this->session->set_flashdata('message', $result['errors']);
 
-            redirect('/teams/');
+                $this->create();
+            }
         }
     }
 
@@ -94,5 +128,35 @@ class Teams extends CI_Controller {
 
         echo json_encode($this->team->all());
 
+    }
+
+    private function handle_logo () {
+        $config['upload_path'] = './assets/img/teams/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size'] = 100;
+        $config['max_width'] = 768;
+        $config['max_height'] = 768;
+        $config['encrypt_name'] = true;
+
+        $this->load->library('upload', $config);
+
+        if ( ! $this->upload->do_upload('logo'))
+        {
+            $error = $this->upload->display_errors();
+
+            return [
+                'success' => false,
+                'errors' => $error
+            ];
+        }
+        else
+        {
+            $data = $this->upload->data();
+
+            return [
+                'success' => true,
+                'data' => $data
+            ];
+        }
     }
 }

@@ -9,9 +9,6 @@
         <div class="col-lg-8 offset-lg-2" >
             <form action="/teams/<?php echo $id; ?>/update/" method="POST" enctype="multipart/form-data" >
 
-                <?php $this->load->view('partials/status'); ?>
-
-
                 <?php $this->load->view('teams/partials/form'); ?>
                 
             </form>

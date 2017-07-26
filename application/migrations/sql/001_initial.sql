@@ -1,4 +1,6 @@
-# noinspection SqlNoDataSourceInspectionForFile
+-- noinspection SqlDialectInspectionForFile
+
+-- noinspection SqlNoDataSourceInspectionForFile
 
 
 drop table if exists injuries;

@@ -1,3 +1,5 @@
+<?php $this->load->view('partials/status'); ?>
+
 <?php if ($errors = validation_errors()): ?>
     <div class="alert alert-danger alert-dismissible fade show" role="alert" >
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -25,7 +27,13 @@
 <div class="form-group" >
     <label for="team-name" >Logo</label>
     <input type="file" accept=".png" 
-        class="form-control" name="team-name" id="team-name" />
+        class="form-control" name="logo" id="team-logo" />
+    <?php if (isset($logo)): ?>
+    <img class="img img-responsive img-rounded"
+         width="128"
+         alt="<?php echo $name; ?>"
+         src="<?php echo base_url('assets/img/teams/' . $logo); ?>" />
+    <?php endif; ?>
 </div>
 <div class="form-group" >
     <button type="submit" class="btn btn-primary" id="team-create">

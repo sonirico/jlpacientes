@@ -29,9 +29,9 @@ teams = (function () {
                         'visible': true,
                         'orderable': false,
                         'createdCell': function (cell, cellData, rowData, rowIndex, colIndex) {
-                            $(cell).append(
+                            $(cell).html(
                                 $('<img>').attr({
-                                    'src': 'http://192.168.33.10:8000/assets/img/logo.png',
+                                    'src': IMG_BASE_URL + cellData,
                                     'alt': rowData.name,
                                     'width': '32'
                                 })
