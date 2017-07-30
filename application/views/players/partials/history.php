@@ -1,7 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: marcos
- * Date: 27/07/17
- * Time: 19:05
- */
+
+
+?>
+
+<div class="row">
+    <div class="col-xs-12">
+        <table id="player-history" class="table"></table>
+    </div>
+</div>

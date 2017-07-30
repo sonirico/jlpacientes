@@ -97,4 +97,15 @@ class Player extends CI_Model {
 
         return $query->result_array();
     }
+
+    public function one_with_team ($id) {
+        $this->db->select('players.*, teams.name as team_name');
+        $this->db->from('players');
+        $this->db->join('teams', 'teams.id = players.team', 'left');
+        $this->db->where('players.id', $id);
+
+        $query = $this->db->get();
+
+        return $query->row_array();
+    }
 }

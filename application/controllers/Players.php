@@ -39,6 +39,12 @@ class Players extends CI_Controller {
         );
     }
 
+    public function show ($id) {
+        $player = $this->player->one_with_team($id);
+
+        $this->load->view('players/show', $player);
+    }
+
     public function update ($id) {
         $this->load->helper('custom_url');
         
@@ -156,6 +162,19 @@ class Players extends CI_Controller {
 
 
         exit;
+    }
+
+    public function injuries ($id)
+    {
+        $this->load->model('injury');
+
+        $response = $this->injury->for_player($id);
+
+        $this->output
+            ->set_status_header(200)
+            ->set_content_type('application/json', 'utf-8')
+            ->set_output(json_encode($response))
+            ->_display();
     }
 
 

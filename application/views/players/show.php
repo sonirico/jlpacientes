@@ -12,7 +12,7 @@
                 <ul class="nav nav-tabs" role="tablist">
 
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#history" role="tab">Histórico lesiones</a>
+                        <a class="nav-link active" data-toggle="tab" href="#history" role="tab">Histórico lesiones</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#nutrition" role="tab">Estado nutricional</a>
@@ -24,7 +24,7 @@
 
                 <!-- Tab panes -->
                 <div class="tab-content">
-                    <div class="tab-pane" id="history" role="tabpanel">
+                    <div class="tab-pane active" id="history" role="tabpanel">
                         <?php $this->load->view('players/partials/history'); ?>
                     </div>
                     <div class="tab-pane" id="nutrition" role="tabpanel">
@@ -37,6 +37,10 @@
             </div>
         </div>
     </div>
+
+<script type="text/javascript">
+    var HISTORY_URL = '<?php echo base_url('/api/players/' . $id . '/history/'); ?>';
+</script>
 
 <?php $this->load->view('partials/footer', ['extra_js' => [
     '/assets/lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js',

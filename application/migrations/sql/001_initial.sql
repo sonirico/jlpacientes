@@ -46,7 +46,7 @@ create table injuries (
     player integer not null references players(id) on delete cascade,
 
     type integer not null,
-    description TEXT,
+    description text,
     happened_at datetime not null default 0,
     days_off integer
 );
