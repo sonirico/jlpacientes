@@ -121,12 +121,50 @@ $players_update = [
 ];
 
 
+$injuries_store_and_update = [
+    [
+        'field' => 'type',
+        'label' => 'Tipo de lesión',
+        'rules' => 'trim|required|is_natural_no_zero',
+        'errors' => [
+            'required' => 'El campo "%s" es obligatorio'
+        ]
+    ],
+    [
+        'field' => 'happened_at',
+        'label' => 'Fecha de lesión',
+        'rules' => 'trim|required|callback_happened_at_check',
+        'errors' => [
+            'required' => 'El campo "%s" es obligatorio',
+        ]
+    ],
+    [
+        'field' => 'days_off',
+        'label' => 'Días estimados de recuperación',
+        'rules' => 'numeric',
+        'errors' => [
+            'numeric' => 'El campo "%s" es obligatorio'
+        ]
+    ],
+    [
+        'field' => 'description',
+        'label' => 'Descripción',
+        'rules' => 'trim|max_length[99999]',
+        'errors' => [
+            'max_length' => 'El campo "%s" es demasiado largo'
+        ]
+    ]
+];
+
 $config = [
     'teams/store' => $teams_store_and_update,
     'teams/update' => $teams_store_and_update,
 
     'players/store' => $players_store,
-    'players/update' => $players_update
+    'players/update' => $players_update,
+
+    'injuries/store' => $injuries_store_and_update,
+    'injuries/update' => $injuries_store_and_update
 ];
 
 ?>

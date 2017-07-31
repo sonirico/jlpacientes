@@ -168,13 +168,9 @@ class Players extends CI_Controller {
     {
         $this->load->model('injury');
 
-        $response = $this->injury->for_player($id);
+        header('Content-Type: application/json');
 
-        $this->output
-            ->set_status_header(200)
-            ->set_content_type('application/json', 'utf-8')
-            ->set_output(json_encode($response))
-            ->_display();
+        echo json_encode($this->injury->for_player($id));
     }
 
 

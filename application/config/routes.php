@@ -66,6 +66,11 @@ $route['teams/store'] = 'teams/store';
 $route['api/teams'] = 'teams/all';
 $route['api/teams/(:num)/delete'] = 'teams/destroy/$1';
 
+// Injuries API
+$route['api/injuries/store'] = 'injuries/store';
+$route['api/injuries/(:num)/update'] = 'injuries/update/$1';
+$route['api/injuries/(:num)/delete'] = 'injuries/destroy/$1';
+
 // Players
 $route['players'] = 'players/index';
 
@@ -75,6 +80,7 @@ $route['players/(:num)/edit'] = 'players/edit/$1';
 $route['players/(:num)/show'] = 'players/show/$1';
 $route['players/(:num)/update'] = 'players/update/$1';
 $route['players/(:num)/delete'] = 'players/destroy/$1';
+$route['players/(:num)/history/pdf'] = 'players/history_to_pdf/$1';
 $route['players/store'] = 'players/store';
 
 // Players API

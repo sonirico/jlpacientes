@@ -45,9 +45,11 @@ create table injuries (
     id integer not null auto_increment primary key,
     player integer not null references players(id) on delete cascade,
 
+    created_at timestamp default current_timestamp,
+    updated_at timestamp default current_timestamp on update current_timestamp,
     type integer not null,
     description text,
-    happened_at datetime not null default 0,
+    happened_at integer not null,
     days_off integer
 );
 
@@ -71,7 +73,7 @@ create table phth_sessions (
     player integer not null references players(id) on delete cascade,
 
     type integer,
-    scheduled_at datetime,
+    scheduled_at integer,
     description text
 );
 
@@ -80,8 +82,8 @@ create table offsicks (
     id integer not null auto_increment primary key,
     player integer not null references players(id) on delete cascade,
 
-    created_at datetime default 0,
-    happened_at datetime,
+    created_at timestamp default current_timestamp,
+    happened_at integer,
     description text,
     duration smallint
 );

@@ -74,7 +74,7 @@ teams = (function () {
                             if ('display' === type) {
                                 var link = document.createElement('a');
 
-                                link.href = "/teams/" + row.id_team + "/edit/";
+                                link.href = "/teams/" + row.team + "/edit/";
                                 link.target = "_blank";
                                 link.innerText = data;
 
@@ -150,6 +150,9 @@ teams = (function () {
                 },
                 'drawCallback': function () {
                     resolve();
+                },
+                language: {
+                    'url': DT_LANGUAGE_URL,
                 }
             });
         });

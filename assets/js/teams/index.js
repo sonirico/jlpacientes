@@ -86,6 +86,9 @@ teams = (function () {
                 },
                 'drawCallback': function () {
                     resolve();
+                },
+                language: {
+                    'url': DT_LANGUAGE_URL,
                 }
             });
         });

@@ -40,10 +40,14 @@
 
 <script type="text/javascript">
     var HISTORY_URL = '<?php echo base_url('/api/players/' . $id . '/history/'); ?>';
+    var INJURY_CREATE = '<?php echo base_url('/api/injuries/store/'); ?>';
+    var INJURY_UPDATE = '<?php echo base_url('/api/injuries/<injury_id>/update/'); ?>';
+    var INJURY_DELETE = '<?php echo base_url('/api/injuries/<injury_id>/delete/'); ?>';
 </script>
 
 <?php $this->load->view('partials/footer', ['extra_js' => [
     '/assets/lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js',
     '/assets/lib/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js',
+    '/assets/lib/momentjs/moment.js',
     '/assets/js/players/show.js'
 ]]); ?>

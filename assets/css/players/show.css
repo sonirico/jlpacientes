@@ -1,0 +1,22 @@
+#injuries-form-container
+{
+    display: none;
+    padding-top: 1em;
+}
+
+#new-injury-button
+{
+    margin-top: 1em;
+}
+
+#player-history
+{
+
+    border-collapse: collapse !important;
+}
+
+.description,
+td.injury-description
+{
+    font-size: 10px;
+}

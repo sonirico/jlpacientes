@@ -1,3 +1,6 @@
+        <script>
+            var DT_LANGUAGE_URL = 'https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json';
+        </script>
 
         <script src="//code.jquery.com/jquery-1.12.4.js" ></script>
 <!-- <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script> -->

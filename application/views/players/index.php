@@ -29,16 +29,20 @@
 
 <!-- Templates -->
 <div class="template" id="player-buttons-container" >
-    <button class="btn btn-default btn-sm btn-action btn-edit" data-action="edit" >
+    <button title="Editar"
+            class="btn btn-default btn-sm btn-action btn-edit" data-action="edit" >
         <i class="fa fa-pencil" aria-hidden="true" ></i>
     </button>
-    <button class="btn btn-default btn-sm btn-action btn-offsick" data-action="offsick" >
+    <button title="Cursar baja"
+            class="btn btn-default btn-sm btn-action btn-offsick" data-action="offsick" >
         <i class="fa fa-thumbs-o-down" aria-hidden="true" ></i>
     </button>
-    <button class="btn btn-success btn-sm btn-action btn-upsick" data-action="upsick" >
+    <button title="Cursar alta"
+            class="btn btn-success btn-sm btn-action btn-upsick" data-action="upsick" >
         <i class="fa fa-thumbs-o-up" aria-hidden="true" ></i>
     </button>
-    <button class="btn btn-danger btn-sm btn-action btn-delete" data-action="delete" >
+    <button title="Eliminar"
+            class="btn btn-danger btn-sm btn-action btn-delete" data-action="delete" >
         <i class="fa fa-trash" aria-hidden="true" ></i>
     </button>
 </div>
