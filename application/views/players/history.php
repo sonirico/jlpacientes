@@ -39,32 +39,34 @@
 
         ?>
 
-        <?php foreach ($injuries as $i): ?>
-
         <div class="container" >
-            <div class="injury" >
-                <div class="row" >
-                    <div class="col-md-4 injury-type" >
-                        <p><?php echo $inj_cat[$i['type']]; ?></p>
-                    </div>
 
-                    <div class="col-md-4 injury-time" >
-                        <time><?php echo $i['happened_at']; ?></time>
-                    </div>
+            <?php foreach ($injuries as $i): ?>
 
-                    <div class="col-md-4 injury-days" >
-                        <p><?php echo $i['days_off']; ?></p>
+                <div class="injury" >
+                    <div class="row" >
+                        <div class="col-md-4 injury-type" >
+                            <p><?php echo $inj_cat[$i['type']]; ?></p>
+                        </div>
+
+                        <div class="col-md-4 injury-time" >
+                            <time><?php echo $i['happened_at']; ?></time>
+                        </div>
+
+                        <div class="col-md-4 injury-days" >
+                            <p><?php echo $i['days_off']; ?></p>
+                        </div>
+                    </div>
+                    <div class="row" >
+                        <div class="col-md-12 injury-description" >
+                            <p><?php echo $i['description']; ?></p>
+                        </div>
                     </div>
                 </div>
-                <div class="row" >
-                    <div class="col-md-12 injury-description" >
-                        <p><?php echo $i['description']; ?></p>
-                    </div>
-                </div>
-            </div>
+
+            <?php endforeach; ?>
+
         </div>
-
-        <?php endforeach; ?>
 
         <?php //$this->load->view('partials/footer'); ?>
 
