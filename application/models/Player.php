@@ -88,6 +88,15 @@ class Player extends CI_Model {
 
     }
 
+    public function injuries ($id) {
+        $this->db->where('player', $id);
+
+        $query = $this->db->get('injuries');
+
+
+        return $query->result_array();
+    }
+
     public function all_with_teams () {
         $this->db->select('players.*, teams.name as team_name');
         $this->db->from('players');

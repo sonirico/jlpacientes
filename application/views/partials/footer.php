@@ -14,14 +14,16 @@
         <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js" ></script>
 
         <!-- Editor -->
-        <script src="/assets/lib/tinymce/js/tinymce/tinymce.min.js" ></script>
+        <script src="<?php echo base_url('/assets/lib/tinymce/js/tinymce/tinymce.min.js'); ?>" ></script>
 
-        <script src="/assets/js/utils.js" ></script>
+        <script src="<?php echo base_url('/assets/js/utils.js'); ?>" ></script>
   
         <script>tinymce.init({ selector:'textarea' });</script>
-        
-        <?php foreach ($extra_js as $script_path): ?>
-            <script src="<?php echo $script_path; ?>" ></script>
-        <?php endforeach; ?>
+
+        <?php if (isset($extra_js)): ?>
+            <?php foreach ($extra_js as $script_path): ?>
+                <script src="<?php echo base_url($script_path); ?>" ></script>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </body>
 </html>

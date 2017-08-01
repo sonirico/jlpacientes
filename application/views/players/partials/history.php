@@ -67,9 +67,17 @@
     <div class="col-md-12" id="injuries-table-container" >
         <div class="row" >
             <div class="col-md-12" >
-                <div class="form-group clearfix" >
+                <div class="form-group clearfix global-actions" >
+                    <a href="<?php echo base_url("players/{$id}/history/pdf/"); ?>"
+                       target="_blank" role="button"
+                       class="btn btn-secondary pull-right" id="export-injury-button" >
+                        Exportar
+                        <i class="fa fa-file-pdf-o" aria-hidden="true" ></i>
+                    </a>
+
                     <button type="button" class="btn btn-primary pull-right" id="new-injury-button" >
                         Nueva lesión
+                        <i class="fa fa-plus" aria-hidden="true" ></i>
                     </button>
                 </div>
             </div>

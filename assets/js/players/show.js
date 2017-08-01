@@ -39,6 +39,24 @@ player_history = (function () {
                         lengthMenu: [5, 10, 20, 50],
                         columns: [
                             {
+                                title: 'Fecha',
+                                data: 'happened_at',
+                                className: 'injury-happened-at',
+                                visible: true,
+                                orderable: true,
+                                render: function (data, type, row, meta) {
+                                    switch (type) {
+                                        case "display":
+                                        case "filter":
+                                            return moment.unix(data).format('DD/MM/Y');
+                                        case "sort":
+                                            return data;
+                                    }
+
+                                    return data;
+                                }
+                            },
+                            {
                                 title: 'Tipo lesión',
                                 data: 'type',
                                 className: 'injury-type',
@@ -57,24 +75,6 @@ player_history = (function () {
                                 createdCell: function (cell, cellData) {
 
                                     $(cell).html(cellData);
-                                }
-                            },
-                            {
-                                title: 'Fecha',
-                                data: 'happened_at',
-                                className: 'injury-happened-at',
-                                visible: true,
-                                orderable: true,
-                                render: function (data, type, row, meta) {
-                                    switch (type) {
-                                        case "display":
-                                        case "filter":
-                                            return moment.unix(data).format('DD/MM/Y');
-                                        case "sort":
-                                            return data;
-                                    }
-
-                                    return data;
                                 }
                             },
                             {
@@ -104,7 +104,7 @@ player_history = (function () {
                             }
                         ],
                         order: [
-                            [2, 'desc']
+                            [0, 'desc']
                         ],
                         data: data,
                         initComplete: function () {
