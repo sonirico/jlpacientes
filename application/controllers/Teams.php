@@ -5,6 +5,8 @@ class Teams extends CI_Controller {
     public function __construct() {
         parent::__construct();
 
+        check_login();
+
         $this->load->model('team');
         $this->load->library('form_validation');
     }

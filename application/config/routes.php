@@ -50,7 +50,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 
+
 $route['default_controller'] = 'offsicks/index';
+
+// Auth
+$route['auth/login']['get'] = 'auth/login_pre';
+$route['auth/login']['post'] = 'auth/login_post';
+$route['auth/logout'] = 'auth/logout';
 
 // Teams
 $route['teams'] = 'teams/index';

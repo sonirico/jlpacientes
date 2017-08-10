@@ -1,4 +1,4 @@
-#injuries-form-container
+.form-container
 {
     display: none;
     padding-top: 1em;
@@ -25,14 +25,44 @@
     }
 }
 
+#player-profile
+{
+    padding-top: 1em;
+}
+
 #player-history
 {
 
     border-collapse: collapse !important;
 }
 
+
+
+/* Injury table */
+
 .description,
 td.injury-description
 {
     font-size: 10px;
+}
+
+td.injury-description
+{
+    min-width: 100px;
+    text-overflow: ellipsis;
+}
+
+td.injury-actions
+{
+    min-width: 50px;
+}
+
+td.injury-happened-at
+{
+    font-size: 12px;
+}
+
+td.injury-days-off
+{
+    text-align: right;
 }

@@ -7,7 +7,7 @@
 
     <div class="container-fluid" >
         <div class="row" id="player-profile" >
-            <div class="col-lg-8 offset-lg-2" >
+            <div class="col-lg-10 offset-lg-1" >
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
 

@@ -1,3 +1,12 @@
+
+create table users (
+    id integer not null auto_increment primary key,
+    username varchar (32) not null unique,
+    email varchar (255) not null unique,
+    password varchar (255),
+    remember_token text
+);
+
 insert into teams (`name`) values
 ('SD Ponferradina'),
 ('Cultural'),

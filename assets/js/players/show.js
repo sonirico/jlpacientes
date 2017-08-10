@@ -57,7 +57,7 @@ player_history = (function () {
                                 }
                             },
                             {
-                                title: 'Tipo lesión',
+                                title: 'Tipo de lesión',
                                 data: 'type',
                                 className: 'injury-type',
                                 visible: true,

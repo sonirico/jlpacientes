@@ -1,7 +1,3 @@
--- noinspection SqlDialectInspectionForFile
-
--- noinspection SqlNoDataSourceInspectionForFile
-
 
 drop table if exists injuries;
 drop table if exists nutrition;
@@ -16,9 +12,9 @@ create table users (
     id integer not null auto_increment primary key,
     username varchar (32) not null unique,
     email varchar (255) not null unique,
-    password varchar (255)
+    password varchar (255),
+    remember_token text
 );
-
 
 create table teams (
     id integer not null auto_increment primary key,

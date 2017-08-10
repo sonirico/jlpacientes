@@ -5,6 +5,8 @@ class Injuries extends CI_Controller {
     {
         parent::__construct();
 
+        check_login();
+
         $this->load->model('injury');
         $this->load->library('form_validation');
     }

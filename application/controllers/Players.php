@@ -7,6 +7,8 @@ class Players extends CI_Controller
     {
         parent::__construct();
 
+        check_login();
+
         $this->load->model('player');
         $this->load->library('form_validation');
     }

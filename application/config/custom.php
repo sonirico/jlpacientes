@@ -1,5 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+
 $stages = [
     1 => 'Fase 1:  Orientación, aproximación médica fisioterapia',
     2 => 'Fase2: Fisioterapia, gimnasio, readaptación',
@@ -57,3 +58,5 @@ $config['stages'] = $stages;
 $config['positions'] = $positions;
 $config['injuries'] = $injuries;
 $config['teams'] = $teams;
+
+$config['algo'] = PASSWORD_BCRYPT;

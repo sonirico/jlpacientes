@@ -156,6 +156,28 @@ $injuries_store_and_update = [
     ]
 ];
 
+$login = [
+    [
+        'field' => 'username',
+        'label' => 'Email/Nickname',
+        'rules' => 'trim|required|max_length[255]',
+        'errors' => [
+            'required' => 'El campo "%s" es obligatorio',
+            'max_length' => 'El campo "%s" es demasiado largo'
+        ]
+    ],
+    [
+        'field' => 'password',
+        'label' => 'Contraseña',
+        'rules' => 'trim|required|callback_check_login',
+        'errors' => [
+            'required' => 'El campo "%s" es obligatorio'
+        ]
+    ]
+];
+
+
+
 $config = [
     'teams/store' => $teams_store_and_update,
     'teams/update' => $teams_store_and_update,
@@ -164,7 +186,9 @@ $config = [
     'players/update' => $players_update,
 
     'injuries/store' => $injuries_store_and_update,
-    'injuries/update' => $injuries_store_and_update
+    'injuries/update' => $injuries_store_and_update,
+
+    'login' => $login
 ];
 
 ?>

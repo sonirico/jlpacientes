@@ -53,11 +53,13 @@
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="http://example.com" 
           id="user-actions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Pepe
+          <?php echo current_user()['username']; ?>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="user-actions">
           <a class="dropdown-item" href="#">Cambiar contraseña</a>
-          <a class="dropdown-item" href="#">Cerrar sesión</a>
+          <a class="dropdown-item" href="<?php echo base_url('auth/logout'); ?>">
+              Cerrar sesión
+          </a>
         </div>
       </li>
     </ul>
