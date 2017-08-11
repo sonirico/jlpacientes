@@ -176,7 +176,33 @@ $login = [
     ]
 ];
 
-
+$password_reset = [
+    [
+        'field' => 'current_password',
+        'label' => 'Contraseña actual',
+        'rules' => 'trim|required|callback_check_current_password',
+        'errors' => [
+            'required' => 'El campo "%s" es obligatorio'
+        ]
+    ],
+    [
+        'field' => 'new_password',
+        'label' => 'Nueva contraseña',
+        'rules' => 'trim|required',
+        'errors' => [
+            'required' => 'El campo "%s" es obligatorio'
+        ]
+    ],
+    [
+        'field' => 'password_confirmation',
+        'label' => 'Confirmación contraseña',
+        'rules' => 'trim|required|matches[new_password]',
+        'errors' => [
+            'required' => 'El campo "%s" es obligatorio',
+            'matches' => 'Las contraseñas no coindicen!'
+        ]
+    ]
+];
 
 $config = [
     'teams/store' => $teams_store_and_update,
@@ -188,7 +214,8 @@ $config = [
     'injuries/store' => $injuries_store_and_update,
     'injuries/update' => $injuries_store_and_update,
 
-    'login' => $login
+    'login' => $login,
+    'password_reset' => $password_reset
 ];
 
 ?>

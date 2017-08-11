@@ -45,7 +45,24 @@ if (! function_exists('is_logged_in'))
             if ($user_hash === $data['signature'])
             {
                 $ci->load->model('user');
-                return $ci->user->has_remember_token($data['id'], $data['token']);
+
+                // Check that user has that token
+                $user = $ci->user->has_remember_token($data['id'], $data['token']);
+
+                if (isset($user))
+                {
+                    $ci->session->set_userdata(['user' => [
+                        'id' => $user['id'],
+                        'username' => $user['username'],
+                        'email' => $user['email']
+                    ]]);
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 

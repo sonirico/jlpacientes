@@ -56,7 +56,9 @@
           <?php echo current_user()['username']; ?>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="user-actions">
-          <a class="dropdown-item" href="#">Cambiar contraseña</a>
+          <a class="dropdown-item" href="<?php echo base_url('auth/password_reset'); ?>" >
+              Cambiar contraseña
+          </a>
           <a class="dropdown-item" href="<?php echo base_url('auth/logout'); ?>">
               Cerrar sesión
           </a>

@@ -164,7 +164,7 @@ teams = (function () {
             'method': 'GET',
             'dataType': 'json'
         });
-    }
+    };
 
     this.init = function () {
         loadData()

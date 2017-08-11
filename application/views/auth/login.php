@@ -23,6 +23,18 @@
 
             <form class="form-signin"
                   action="<?php echo base_url('auth/login'); ?>" method="post" >
+                <h2 class="form-signin-heading text-center">Iniciar sesión</h2>
+
+                <?php if ($this->session->userdata('password_reset')):
+                    $this->session->unset_userdata('password_reset'); ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert" >
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>Contraseña actualizada correctamente</strong>
+                    </div>
+                <?php endif; ?>
+
                 <?php if ($errors = validation_errors()): ?>
                     <div class="alert alert-danger alert-dismissible fade show" role="alert" >
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">

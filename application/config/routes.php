@@ -56,6 +56,8 @@ $route['default_controller'] = 'offsicks/index';
 // Auth
 $route['auth/login']['get'] = 'auth/login_pre';
 $route['auth/login']['post'] = 'auth/login_post';
+$route['auth/password_reset']['get'] = 'auth/password_reset_pre';
+$route['auth/password_reset']['post'] = 'auth/password_reset_post';
 $route['auth/logout'] = 'auth/logout';
 
 // Teams

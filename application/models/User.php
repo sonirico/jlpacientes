@@ -83,6 +83,31 @@ class User extends CI_Model {
         return false;
     }
 
+    public function has_password ($user_id, $password)
+    {
+        $this->db->where('id', $user_id);
+        $query = $this->db->get($this->table_name);
+
+        $user = $query->row_array();
+
+        if ($user)
+        {
+            return password_verify($password, $user['password']);
+        }
+
+        return false;
+    }
+
+    public function change_password ($user_id, $password)
+    {
+        $this->db->where('id', $user_id);
+        $this->db->update($this->table_name, [
+            'password' => password_hash($password, config_item('algo'))
+        ]);
+
+        return $this->db->affected_rows() > 0;
+    }
+
     public function has_remember_token ($id, $token)
     {
         $this->db->where('id', $id);
@@ -90,7 +115,7 @@ class User extends CI_Model {
 
         $query = $this->db->get($this->table_name);
 
-        return $query->num_rows() > 0;
+        return $query->row_array();
     }
 
     public function unset_remember_token ($id)
