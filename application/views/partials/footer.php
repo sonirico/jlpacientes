@@ -3,21 +3,19 @@
         </script>
 
         <script src="//code.jquery.com/jquery-1.12.4.js" ></script>
-<!-- <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script> -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-
+        <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <!-- DT dependencies -->
 
-        
+
         <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js" ></script>
-        <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js" ></script>
+        <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js" ></script>
 
         <!-- Editor -->
         <script src="<?php echo base_url('/assets/lib/tinymce/js/tinymce/tinymce.min.js'); ?>" ></script>
 
         <script src="<?php echo base_url('/assets/js/utils.js'); ?>" ></script>
-  
+
         <script>tinymce.init({ selector:'textarea' });</script>
 
         <?php if (isset($extra_js)): ?>

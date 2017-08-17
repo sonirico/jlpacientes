@@ -1,3 +1,4 @@
+use jlpacientes;
 
 drop table if exists injuries;
 drop table if exists nutrition;

@@ -65,3 +65,12 @@ td.injury-days-off
 {
     text-align: right;
 }
+
+
+/* Nutrition table */
+
+#player-nutrition-history
+{
+    width: 100%;
+    border-collapse: collapse !important;
+}

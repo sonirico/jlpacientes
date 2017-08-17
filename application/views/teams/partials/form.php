@@ -1,7 +1,7 @@
 <?php $this->load->view('partials/status'); ?>
 
 <?php if ($errors = validation_errors()): ?>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert" >
+    <div class="alert alert-danger alert-dismissible show" role="alert" >
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -18,7 +18,7 @@
 
     <?php if (isset($name)) : ?>
         <input type="text" class="form-control" name="name" id="team-name"
-            value="<?php echo $name; ?>" /> 
+            value="<?php echo $name; ?>" />
     <?php else: ?>
         <input type="text" class="form-control" name="name" id="team-name"
             value="<?php echo set_value('name'); ?>" />
@@ -26,8 +26,7 @@
 </div>
 <div class="form-group" >
     <label for="team-name" >Logo</label>
-    <input type="file" accept=".png" 
-        class="form-control" name="logo" id="team-logo" />
+    <input type="file" accept=".png" name="logo" id="team-logo" />
     <?php if (isset($logo)): ?>
     <img class="img img-responsive img-rounded"
          width="128"

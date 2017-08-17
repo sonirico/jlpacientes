@@ -7,7 +7,7 @@
 
     <div class="container-fluid" >
         <div class="row" id="player-profile" >
-            <div class="col-lg-10 offset-lg-1" >
+            <div class="col-lg-10 col-lg-offset-1" >
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
 
@@ -45,9 +45,9 @@
     var INJURY_DELETE = '<?php echo base_url('/api/injuries/<injury_id>/delete/'); ?>';
 
     var NUTRITION_URL = '<?php echo base_url('/api/players/' . $id . '/nutrition/'); ?>';
-    var INJURY_CREATE = '<?php echo base_url('/api/injuries/store/'); ?>';
-    var INJURY_UPDATE = '<?php echo base_url('/api/injuries/<injury_id>/update/'); ?>';
-    var INJURY_DELETE = '<?php echo base_url('/api/injuries/<injury_id>/delete/'); ?>';
+    var NUTRITION_CREATE = '<?php echo base_url('/api/nutrition/store/'); ?>';
+    var NUTRITION_UPDATE = '<?php echo base_url('/api/nutrition/<nutrition_id>/update/'); ?>';
+    var NUTRITION_DELETE = '<?php echo base_url('/api/nutrition/<nutrition_id>/delete/'); ?>';
 </script>
 
 <?php $this->load->view('partials/footer', ['extra_js' => [

@@ -183,6 +183,10 @@ player_history = (function () {
             __resetUI();
         };
 
+        this.adjustTable = function () {
+            dataTableObj.columns.adjust().draw();
+        };
+
         var __validateData = function () {
             return {
                 'happened_at': injuryForm.find('[name="happened_at"]').val().trim(),
@@ -290,9 +294,9 @@ player_nutrition = (function () {
         var dataTableObj = {};
 
         var __resetUI = function () {
-            formContainer.hide();
-            tableContainer.show();
-            nutritionForm[0].reset();
+            // formContainer.hide();
+            // tableContainer.show();
+            // nutritionForm[0].reset();
         };
 
         var __loadData = function () {
@@ -319,11 +323,18 @@ player_nutrition = (function () {
                         lengthMenu: [5, 10, 20, 50],
                         columns: [
                             {
-                                title: '',
+                                title: 'Registrado en',
                                 data: 'created_at',
                                 className: '',
-                                visible: false,
-                                orderable: true
+                                visible: true,
+                                orderable: true,
+                                render: function (data, type, row, meta) {
+                                    if ('display' === type) {
+                                        return moment(data).format('DD/MM/Y');
+                                    }
+
+                                    return data;
+                                }
                             },
                             {
                                 title: 'Cumple dieta',
@@ -365,7 +376,7 @@ player_nutrition = (function () {
                                 // }
                             },
                             {
-                                title: 'Masa (cm)',
+                                title: 'Masa (Kg)',
                                 data: 'weight',
                                 className: 'nutrition-weight',
                                 visible: true,
@@ -415,13 +426,13 @@ player_nutrition = (function () {
                             },
                             {
                                 title: 'Acciones',
-                                data: 'actions',
+                                data: null,
                                 className: 'nutrition-actions',
                                 visible: true,
                                 orderable: false,
                                 createdCell: function (cell, cellData) {
                                     $(cell).html(
-                                        utils.template('#injury-buttons-container')
+                                        utils.template('#nutrition-buttons-container')
                                     );
                                 }
                             }
@@ -449,16 +460,14 @@ player_nutrition = (function () {
             nutrition: {},
             deleteModal: $('#nutrition-deletion-modal'),
             edit: function () {
-                nutritionForm.find('[name="type"]').val(this.nutrition.type);
-                nutritionForm.find('[name="happened_at"]').val(
-                    moment.unix(this.nutrition.happened_at).format('DD/MM/Y')
-                );
-                nutritionForm.find('[name="days_off"]').val(this.nutrition.days_off);
-                tinymce.get('injury-description').setContent(this.nutrition.description);
 
-                nutritionForm.attr('action', INJURY_UPDATE);
-                formContainer.show();
-                tableContainer.hide();
+                __fillData(this.nutrition);
+
+                $('html, body').animate({
+                    scrollTop: nutritionForm.offset().top - 50
+                });
+
+                nutritionForm.attr('action', NUTRITION_UPDATE);
             },
             destroy: function () {
                 var dataContainer = this.deleteModal.find('.injury-data');
@@ -478,6 +487,11 @@ player_nutrition = (function () {
             return new Promise(function (resolve, reject) {
                 __loadData()
                     .done(function (data) {
+
+                        var nut = data || [];
+                        if (nut.length > 0) {
+                            __fillData(nut[0]);
+                        }
 
                         __populateTable(data, reload)
                             .then(function (data) {
@@ -508,34 +522,33 @@ player_nutrition = (function () {
             __resetUI();
         };
 
+        var __fillData = function (nut) {
+            nutritionForm.find('[name="diet_keen"]').prop('checked', parseInt(nut.diet_keen) > 0);
+            nutritionForm.find('[name="imc"]').val(nut.imc);
+            tinymce.get('nutrition-comments').setContent(nut.comments),
+            nutritionForm.find('[name="folds"]').val(nut.folds);
+            nutritionForm.find('[name="height"]').val(nut.height);
+            nutritionForm.find('[name="weight"]').val(nut.weight);
+            nutritionForm.find('[name="hip_waist_perimeter"]').val(nut.hip_waist_perimeter);
+        };
+
         var __validateData = function () {
             return {
-                'happened_at': nutritionForm.find('[name="happened_at"]').val().trim(),
-                'days_off': nutritionForm.find('[name="days_off"]').val().trim(),
-                'description': tinymce.get('injury-description').getContent(),
-                'type': nutritionForm.find('[name="type"]').val().trim(),
+                'diet_keen': nutritionForm.find('[name="diet_keen"]').is(':checked') ? 1 : 0,
+                'imc': nutritionForm.find('[name="imc"]').val().trim(),
+                'comments': tinymce.get('nutrition-comments').getContent(),
+                'folds': nutritionForm.find('[name="folds"]').val(),
+                'height': nutritionForm.find('[name="height"]').val().trim(),
+                'weight': nutritionForm.find('[name="weight"]').val().trim(),
+                'hip_waist_perimeter': nutritionForm.find('[name="hip_waist_perimeter"]').val().trim(),
                 'player': nutritionForm.find('[name="player"]').val().trim()
             };
         };
 
         this.events = function () {
-            $('#injury-happened-at').datepicker({
-                format: "dd/mm/yyyy",
-                todayBtn: "linked",
-                clearBtn: true,
-                language: "es",
-                autoclose: true,
-                todayHighlight: true
-            });
 
-            $('#new-injury-button').click(function () {
-                formContainer.show();
-                tableContainer.hide();
-                nutritionForm.attr('action', INJURY_CREATE);
-            });
-
-            formContainer.find('.cancel').click(function () {
-                __resetUI();
+            $('#new-nutrition-button').click(function () {
+                nutritionForm.attr('action', NUTRITION_CREATE);
             });
 
             nutritionForm.submit(function (e) {
@@ -546,7 +559,7 @@ player_nutrition = (function () {
                 data.csrf_token = $('[name="csrf_token"]').attr('content').trim();
 
                 $.ajax({
-                    'url': $(this).attr('action').replace('<injury_id>', nutritionForm.injury.id),
+                    'url': $(this).attr('action').replace('<nutrition_id>', NutritionForm.nutrition.id),
                     'method': $(this).attr('method'),
                     'data': data
                 }).done(function () {
@@ -561,9 +574,9 @@ player_nutrition = (function () {
             tableObj.on('click', '.btn-action', function () {
                 var btn = $(this);
                 var action = btn.data('action');
-                var injury = dataTableObj.row(btn.closest('tr')).data();
+                var nut = dataTableObj.row(btn.closest('tr')).data();
 
-                nutritionForm.injury = injury;
+                NutritionForm.nutrition = nut;
 
                 switch (action) {
                     case "edit":
@@ -575,10 +588,10 @@ player_nutrition = (function () {
                 }
             });
 
-            $('#delete-injury-button').click(function () {
+            $('#delete-nutrition-button').click(function () {
                 $.when(
                     $.ajax({
-                        url: INJURY_DELETE.replace('<injury_id>', nutritionForm.injury.id),
+                        url: NUTRITION_DELETE.replace('<nutrition_id>', NutritionForm.nutrition.id),
                         method: 'POST',
                         data: {
                             csrf_token: $('[name="csrf_token"]').attr('content').trim()
@@ -595,6 +608,10 @@ player_nutrition = (function () {
                 });
             });
         }
+
+        this.adjustTable = function () {
+            dataTableObj.columns.adjust().draw();
+        };
     }
 
     return new PlayerNutrition();
@@ -605,7 +622,23 @@ $(function () {
     player_history.init().then(function () {
         player_history.events();
 
-        player_nutrition.init();
+        player_nutrition.init().then(function () {
+            player_nutrition.events();
+        });
+    });
+
+
+    $('[href="#history"]').on('shown.bs.tab', function () {
+        player_history.adjustTable();
+    });
+
+    $('[href="#nutrition"]').on('shown.bs.tab', function () {
+        player_nutrition.adjustTable();
+        // alert('sfdg');
+    });
+
+    $('[href="#history"]').on('shown.bs.tab', function () {
+        // player_history.adjustTable();
     });
 
 });

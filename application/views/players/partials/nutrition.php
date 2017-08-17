@@ -1,8 +1,5 @@
 <?php
 
-$nut_state['diet_keen'] = '1';
-$nut_state['imc'] = 25;
-
 ?>
 
 <div class="row">
@@ -17,31 +14,21 @@ $nut_state['imc'] = 25;
                 <div class="col-md-4" >
                     <label for="nutrition-diet-keen">Cumple dieta</label>
                     <div>
-                        <input type="checkbox"
-                           id="nutrition-diet-keen" name="diet_keen"
-                           value="<?php boolval($nut_state['diet_keen']) ? 1 : 0; ?>"
-                           checked="<?php boolval($nut_state['diet_keen']) ? 'true' : 'false'; ?>" />
+                        <input type="checkbox" id="nutrition-diet-keen" name="diet_keen" />
                     </div>
                 </div>
                 <div class="col-md-4 form-group">
                     <label for="nutrition-imc">IMC</label>
                     <input type="number" min="10" max="60" step="1"
                            class="form-control" id="nutrition-imc" name="imc"
-                           value="<?php echo $nut_state['imc']; ?>" />
+                           value="" />
                 </div>
                 <div class="col-md-4 form-group">
                     <label for="nutrition-waist-hip">Perímetro cintura-cadera (cm)</label>
-                    <select class="form-control" id="nutrition-waist-hip" >
-                        <option val="-1">-- Ninguno --</option>
-                        <?php $current_value = intval(@$nut_state['hip_waist_perimeter']); ?>
+                    <select class="form-control" id="nutrition-waist-hip" name="hip_waist_perimeter" >
+                        <option value="-1">-- Ninguno --</option>
                         <?php for ($i = 20; $i < 150; $i++): ?>
-                            <?php if ($current_value === $i): ?>
-                                <option val="<? echo $i;?>" selected>
-                            <?php else: ?>
-                                <option val="<? echo $i;?>" >
-                            <?php endif; ?>
-                            <?php echo $i; ?>
-                            </option>
+                            <option value="<?php echo $i;?>" ><?php echo $i; ?></option>
                         <?php endfor; ?>
                     </select>
                 </div>
@@ -49,49 +36,28 @@ $nut_state['imc'] = 25;
             <div class="row" >
                 <div class="col-md-4 form-group">
                     <label for="nutrition-weight">Masa (Kg)</label>
-                    <select class="form-control" id="nutrition-weight" >
-                        <option val="0">-- Ninguna --</option>
-                        <?php $current_value = intval(@$nut_state['weight']); ?>
-                        <?php for ($i = 5; $i < 150; $i++): ?>
-                            <?php if ($current_value === $i): ?>
-                                <option val="<? echo $i;?>" selected>
-                            <?php else: ?>
-                                <option val="<? echo $i;?>" >
-                            <?php endif; ?>
-                            <?php echo $i; ?>
-                            </option>
-                        <?php endfor; ?>
+                    <select class="form-control" id="nutrition-weight" name="weight" >
+                    <option value="-1">-- Ninguna --</option>
+                    <?php for ($i = 5; $i < 150; $i++): ?>
+                        <option value="<?php echo $i;?>" ><?php echo $i; ?></option>
+                    <?php endfor; ?>
                     </select>
                 </div>
                 <div class="col-md-4 form-group">
                     <label for="nutrition-height">Altura (cm)</label>
-                    <select class="form-control" id="nutrition-height" >
-                        <option val="-1">-- Ninguno --</option>
-                        <?php $current_value = intval(@$nut_state['height']); ?>
+                    <select class="form-control" id="nutrition-height" name="height">
+                        <option value="-1">-- Ninguno --</option>
                         <?php for ($i = 50; $i < 250; $i++): ?>
-                            <?php if ($current_value === $i): ?>
-                                <option val="<? echo $i;?>" selected>
-                            <?php else: ?>
-                                <option val="<? echo $i;?>" >
-                            <?php endif; ?>
-                            <?php echo $i; ?>cm
-                            </option>
+                        <option value="<?php echo $i;?>" ><?php echo $i; ?>cm</option>
                         <?php endfor; ?>
                     </select>
                 </div>
                 <div class="col-md-4 form-group">
                     <label for="nutrition-folds">Pliegues</label>
-                    <select class="form-control" id="nutrition-folds" >
-                        <option val="-1">-- Ninguno --</option>
-                        <?php $current_value = intval(@$nut_state['folds']); ?>
+                    <select class="form-control" id="nutrition-folds" name="folds" >
+                        <option value="0">-- Ninguno --</option>
                         <?php foreach (config_item('folds') as $fold): ?>
-                            <?php if ($current_value === $fold): ?>
-                                <option val="<? echo $fold;?>" selected>
-                            <?php else: ?>
-                                <option val="<? echo $fold;?>" >
-                            <?php endif; ?>
-                            <?php echo $fold; ?>
-                            </option>
+                        <option value="<?php echo $fold;?>" ><?php echo $fold; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -114,12 +80,13 @@ $nut_state['imc'] = 25;
 
 <div class="row">
     <div class="col-md-12" id="injuries-table-container" >
+        <h2 class="text-center">Evolución</h2>
         <div class="row" >
             <div class="col-md-12" >
                 <div class="form-group clearfix global-actions" >
                     <a href="<?php echo base_url("players/{$id}/nutrition/pdf/"); ?>"
                        target="_blank" role="button"
-                       class="btn btn-secondary pull-right" id="export-injury-button" >
+                       class="btn btn-secondary pull-right" id="export-nutrition-button" >
                         Exportar
                         <i class="fa fa-file-pdf-o" aria-hidden="true" ></i>
                     </a>
@@ -129,7 +96,7 @@ $nut_state['imc'] = 25;
 
         <div class="row" >
             <div class="col-md-12" >
-                <table id="player-nutrition-history" class="table">
+                <table id="player-nutrition-history" class="table" width="100%" >
                     <tr>
                         <td class="text-center" >Cargando historial...</td>
                     </tr>
@@ -141,7 +108,7 @@ $nut_state['imc'] = 25;
     </div>
 </div>
 
-<div class="template injury-buttons-container" id="injury-buttons-container" >
+<div class="template nutrition-buttons-container" id="nutrition-buttons-container" >
     <button title="Editar"
             class="btn btn-default btn-sm btn-action btn-edit" data-action="edit" >
         <i class="fa fa-pencil" aria-hidden="true" ></i>
@@ -152,13 +119,13 @@ $nut_state['imc'] = 25;
     </button>
 </div>
 
-<!-- Modal delete player -->
-<div class="modal fade" id="injury-deletion-modal" tabindex="-1" role="dialog"
-     aria-labelledby="delete-injury-title" aria-hidden="true">
+<!-- Modal delete nutrition -->
+<div class="modal fade" id="nutrition-deletion-modal" tabindex="-1" role="dialog"
+     aria-labelledby="delete-nutrition-title" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="delete-injury-title">Borrar entrada del historial</h5>
+                <h5 class="modal-title" id="delete-nutrition-title">Borrar entrada del historial</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -171,20 +138,11 @@ $nut_state['imc'] = 25;
 
                 <hr/>
 
-                <div class="injury-data" >
-                    <p><strong>Lesión: </strong><span class="type"></span></p>
-                    <p><strong>Ocurrió en: </strong><span class="happened_at"></span></p>
-                    <p><strong>Recuperación (días): </strong><span class="days_off"></span></p>
-                    <p><strong>Description: </strong><span class="description"></span></p>
-                </div>
-
-                <hr/>
-
                 <p>¿Desea continuar?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-danger" id="delete-injury-button">Borrar</button>
+                <button type="button" class="btn btn-danger" id="delete-nutrition-button">Borrar</button>
             </div>
         </div>
     </div>

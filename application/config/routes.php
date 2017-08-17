@@ -61,9 +61,9 @@ $route['auth/password_reset']['post'] = 'auth/password_reset_post';
 $route['auth/logout'] = 'auth/logout';
 
 // Nutrition API
-$route['api/nutrition/store'] = 'nutrition/store';
-$route['api/nutrition/(:num)/update'] = 'nutrition/update/$1';
-$route['api/nutrition/(:num)/delete'] = 'nutrition/destroy/$1';
+$route['api/nutrition/store'] = 'nutritions/store';
+$route['api/nutrition/(:num)/update'] = 'nutritions/update/$1';
+$route['api/nutrition/(:num)/delete'] = 'nutritions/destroy/$1';
 
 // Teams
 $route['teams'] = 'teams/index';

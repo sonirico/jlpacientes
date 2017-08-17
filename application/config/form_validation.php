@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $teams_store_and_update = [
     [
@@ -204,6 +204,66 @@ $password_reset = [
     ]
 ];
 
+
+$nutrition_store_and_update = [
+    [
+        'field' => 'diet_keen',
+        'label' => 'Cumple dieta',
+        'rules' => 'trim|required|in_list[0,1]',
+        'errors' => [
+            'required' => 'El campo "%s" es obligatorio',
+            'in_list' => 'El campo "%s" es incorrecto'
+        ]
+    ],
+    [
+        'field' => 'imc',
+        'label' => 'IMC',
+        'rules' => 'trim|required|min_length[2]|max_length[255]',
+        'errors' => [
+            'required' => 'El campo "Apellidos" es obligatorio',
+            'min_length' => 'El campo "Apellidos" es demasiado corto',
+            'max_length' => 'El campo "Apellidos" es demasiado largo'
+        ]
+    ],
+    [
+        'field' => 'hip_waist_perimeter',
+        'label' => 'P. Cintura-cadera',
+        'rules' => 'trim|required|is_natural_no_zero',
+        'errors' => [
+            'required' => 'El campo "%s" es obligatorio',
+            'is_natural_no_zero' => 'El campo "%s" es incorrecto'
+        ]
+    ],
+    [
+        'field' => 'height',
+        'label' => 'Altura',
+        'rules' => 'trim|required|is_natural_no_zero',
+        'errors' => [
+            'required' => 'El campo "%s" es obligatorio',
+            'is_natural_no_zero' => 'El campo "%s" tiene un formato incorrecto'
+        ]
+    ],
+    [
+        'field' => 'weight',
+        'label' => 'Masa',
+        'rules' => 'trim|required|is_natural_no_zero',
+        'errors' => [
+            'required' => 'El campo "%s" es obligatorio',
+            'is_natural_no_zero' => 'El campo "%s" es obligatorio'
+        ]
+    ],
+    [
+        'field' => 'folds',
+        'label' => 'Pliegues',
+        'rules' => 'trim|required|is_natural',
+        'errors' => [
+            'required' => 'El campo "%s" es obligatorio',
+            'is_natural' => 'El campo "%s" es incorrecto'
+        ]
+    ]
+];
+
+
 $config = [
     'teams/store' => $teams_store_and_update,
     'teams/update' => $teams_store_and_update,
@@ -213,6 +273,8 @@ $config = [
 
     'injuries/store' => $injuries_store_and_update,
     'injuries/update' => $injuries_store_and_update,
+
+    'nutrition/update_store' => $nutrition_store_and_update,
 
     'login' => $login,
     'password_reset' => $password_reset
