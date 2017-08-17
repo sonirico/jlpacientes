@@ -59,8 +59,9 @@ create table nutrition (
     height integer,
     weight integer,
     hip_waist_perimeter integer,
+    folds integer,
     comments text,
-    created_at datetime not null default 0
+    created_at datetime not null default current_timestamp
 );
 
 

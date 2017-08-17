@@ -97,6 +97,15 @@ class Player extends CI_Model {
         return $query->result_array();
     }
 
+    public function nutrition ($id) {
+        $this->db->where('player', $id);
+        $this->db->order_by('created_at', 'DESC');
+
+        $query = $this->db->get('nutrition');
+
+        return $query->result_array();
+    }
+
     public function all_with_teams () {
         $this->db->select('players.*, teams.name as team_name');
         $this->db->from('players');

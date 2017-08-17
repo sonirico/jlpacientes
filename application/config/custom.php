@@ -58,5 +58,6 @@ $config['stages'] = $stages;
 $config['positions'] = $positions;
 $config['injuries'] = $injuries;
 $config['teams'] = $teams;
+$config['folds'] = range(1, 6);
 
 $config['algo'] = PASSWORD_BCRYPT;

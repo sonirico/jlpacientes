@@ -4,7 +4,7 @@
 ?>
 
 <div class="row">
-    <div class="col-md-12 form-container" id="injuries-form-container">
+    <div class="col-md-12 form-container" id="injuries-form-container" style="display: none;">
         <form id="injury-form"
               action="<?php echo base_url('/api/injuries/store/'); ?>"
               method="POST">

@@ -1,6 +1,5 @@
 .form-container
 {
-    display: none;
     padding-top: 1em;
 }
 
@@ -52,7 +51,7 @@ td.injury-description
     text-overflow: ellipsis;
 }
 
-td.injury-actions
+.injury-actions
 {
     min-width: 50px;
 }

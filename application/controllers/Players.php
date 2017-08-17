@@ -163,6 +163,13 @@ class Players extends CI_Controller
         echo json_encode($this->player->injuries($id));
     }
 
+    public function nutrition($id)
+    {
+        header('Content-Type: application/json');
+
+        echo json_encode($this->player->nutrition($id));
+    }
+
     public function history_to_pdf($id)
     {
         $this->load->library('pdf');

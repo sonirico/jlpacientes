@@ -60,6 +60,11 @@ $route['auth/password_reset']['get'] = 'auth/password_reset_pre';
 $route['auth/password_reset']['post'] = 'auth/password_reset_post';
 $route['auth/logout'] = 'auth/logout';
 
+// Nutrition API
+$route['api/nutrition/store'] = 'nutrition/store';
+$route['api/nutrition/(:num)/update'] = 'nutrition/update/$1';
+$route['api/nutrition/(:num)/delete'] = 'nutrition/destroy/$1';
+
 // Teams
 $route['teams'] = 'teams/index';
 
@@ -97,6 +102,7 @@ $route['api/players/(:num)/delete'] = 'players/destroy/$1';
 $route['api/players/(:num)/offsick'] = 'players/offsick/$1';
 $route['api/players/(:num)/upsick'] = 'players/upsick/$1';
 $route['api/players/(:num)/history'] = 'players/injuries/$1';
+$route['api/players/(:num)/nutrition'] = 'players/nutrition/$1';
 
 
 $route['offsick/create'] = 'offsicks/create';
