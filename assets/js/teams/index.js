@@ -29,14 +29,15 @@ teams = (function () {
                         'visible': true,
                         'orderable': false,
                         'createdCell': function (cell, cellData, rowData, rowIndex, colIndex) {
-                            $(cell).html(
-                                $('<img>').attr({
-                                    'src': IMG_BASE_URL + cellData,
-                                    'alt': rowData.name,
-                                    'width': '32'
-                                })
-                                .addClass('img-responsive thumbnail')
-                            );
+                            if (cellData)
+                                $(cell).html(
+                                    $('<img>').attr({
+                                        'src': IMG_BASE_URL + cellData,
+                                        'alt': rowData.name,
+                                        'width': '32'
+                                    })
+                                    .addClass('img-responsive thumbnail')
+                                );
                         }
                     },
                     {
@@ -55,7 +56,7 @@ teams = (function () {
 
                                 return link.outerHTML;
                             }
-                            
+
                             return data;
                         }
                     },

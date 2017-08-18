@@ -8,13 +8,13 @@
     <div class="row" id="players-container" >
         <div class="col-lg-12" >
             <div class="form-group text-right" >
-                <a href="/players/create/" class="btn btn-primary" 
+                <a href="/players/create/" class="btn btn-primary"
                     role="button" >Alta jugador</a>
             </div>
 
             <?php $this->load->view('partials/status'); ?>
 
-            <div class="table-responsive" >
+            <div>
                 <table id="players-table" class="table"  >
                     <tbody>
                         <tr>
@@ -48,7 +48,7 @@
 </div>
 
 <!-- Modal delete player -->
-<div class="modal fade" id="delete-player-modal" tabindex="-1" role="dialog" 
+<div class="modal fade" id="delete-player-modal" tabindex="-1" role="dialog"
     aria-labelledby="delete-player-title" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -63,7 +63,7 @@
         Estás a punto de borrar a <em class="deletion-player-name" ></em>. Esta
         acción es irreversible.
         </p>
-        
+
         <p>¿Desea continuar?</p>
       </div>
       <div class="modal-footer">
@@ -107,5 +107,5 @@
 
 <?php $this->load->view('partials/footer', ['extra_js' => [
     '/assets/lib/momentjs/moment.js',
-    '/assets/js/players/index.js'    
+    '/assets/js/players/index.js'
 ]]); ?>

@@ -289,14 +289,14 @@ player_nutrition = (function () {
 
         var formContainer = $('#nutrition-form-container');
         var nutritionForm = $('#nutrition-form');
-        var tableContainer = $('#injuries-table-container');
+        var tableContainer = $('#nutrition-table-container');
         var tableObj = $('#player-nutrition-history');
         var dataTableObj = {};
 
         var __resetUI = function () {
-            // formContainer.hide();
-            // tableContainer.show();
-            // nutritionForm[0].reset();
+            formContainer.hide();
+            tableContainer.show();
+            nutritionForm[0].reset();
         };
 
         var __loadData = function () {
@@ -463,11 +463,10 @@ player_nutrition = (function () {
 
                 __fillData(this.nutrition);
 
-                $('html, body').animate({
-                    scrollTop: nutritionForm.offset().top - 50
-                });
-
                 nutritionForm.attr('action', NUTRITION_UPDATE);
+
+                formContainer.show();
+                tableContainer.hide();
             },
             destroy: function () {
                 var dataContainer = this.deleteModal.find('.injury-data');
@@ -548,26 +547,34 @@ player_nutrition = (function () {
         this.events = function () {
 
             $('#new-nutrition-button').click(function () {
+                formContainer.show();
+                tableContainer.hide();
                 nutritionForm.attr('action', NUTRITION_CREATE);
             });
 
-            nutritionForm.submit(function (e) {
-                e.preventDefault();
+            nutritionForm.find('.cancel').click(function (e) {
+                __resetUI();
+            });
+
+            nutritionForm.find('.send').click(function (e) {
+
+                var btn = $(this);
+                btn.prop('disabled', true);
 
                 var data = __validateData();
 
                 data.csrf_token = $('[name="csrf_token"]').attr('content').trim();
 
                 $.ajax({
-                    'url': $(this).attr('action').replace('<nutrition_id>', NutritionForm.nutrition.id),
-                    'method': $(this).attr('method'),
+                    'url': nutritionForm.attr('action').replace('<nutrition_id>', NutritionForm.nutrition.id),
+                    'method': nutritionForm.attr('method'),
                     'data': data
                 }).done(function () {
                     me.reload();
                 }).fail(function (jqXHR, textStatus) {
                     alert(textStatus);
                 }).always(function () {
-
+                    btn.prop('disabled', false);
                 });
             });
 

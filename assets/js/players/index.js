@@ -21,6 +21,7 @@ teams = (function () {
             }
 
             tableObj = $('#players-table').DataTable({
+                'scrollX': false,
                 'processing': true,
                 'deferRender': true,
                 'pageLength': 50,
@@ -49,7 +50,7 @@ teams = (function () {
 
                                 return link.outerHTML;
                             }
-                            
+
                             return row.name + " " + row.surname;
                         }
                     },

@@ -3,7 +3,7 @@
 ?>
 
 <div class="row">
-    <div class="col-md-12 form-container" id="nutrition-form-container">
+    <div class="col-md-12 form-container" id="nutrition-form-container" style="display:none">
         <form id="nutrition-form"
               action="<?php echo base_url('/api/nutrition/store/'); ?>"
               method="POST">
@@ -71,7 +71,8 @@
             </div>
             <div class="row" >
                 <div class="col-md-12" >
-                    <button type="submit" class="btn btn-primary send" >Actualizar</button>
+                    <button type="button" class="btn btn-primary send" >Enviar</button>
+                    <button type="button" class="btn btn-warning cancel" >Cancelar</button>
                 </div>
             </div>
         </form>
@@ -79,14 +80,20 @@
 </div>
 
 <div class="row">
-    <div class="col-md-12" id="injuries-table-container" >
-        <h2 class="text-center">Evolución</h2>
+    <div class="col-md-12" id="nutrition-table-container" >
+        <!-- <h2 class="text-center">Evolución</h2> -->
         <div class="row" >
             <div class="col-md-12" >
-                <div class="form-group clearfix global-actions" >
+                <div class="form-group clearfix global-actions text-right" >
+
+                    <button class="btn btn-primary" id="new-nutrition-button" >
+                        <i class="fa fa-plus" >&nbsp;</i>
+                        Nuevo estado nutricional
+                    </button>
+
                     <a href="<?php echo base_url("players/{$id}/nutrition/pdf/"); ?>"
                        target="_blank" role="button"
-                       class="btn btn-secondary pull-right" id="export-nutrition-button" >
+                       class="btn btn-default" id="export-nutrition-button" >
                         Exportar
                         <i class="fa fa-file-pdf-o" aria-hidden="true" ></i>
                     </a>

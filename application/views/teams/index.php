@@ -8,13 +8,13 @@
     <div class="row" id="teams-container" >
         <div class="col-lg-12" >
             <div class="form-group text-right" >
-                <a href="/teams/create/" class="btn btn-primary" 
+                <a href="/teams/create/" class="btn btn-primary"
                     role="button" >Nuevo equipo</a>
             </div>
 
             <?php $this->load->view('partials/status'); ?>
 
-            <div class="table-responsive" >
+            <div>
                 <table id="teams-table" class="table table-bordered"  >
                     <tbody>
                         <tr>
@@ -28,7 +28,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="delete-team-modal" tabindex="-1" role="dialog" 
+<div class="modal fade" id="delete-team-modal" tabindex="-1" role="dialog"
     aria-labelledby="delete-team-title" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -43,7 +43,7 @@
         Estás a punto de borrar el equipo <em class="deletion-team-name" ></em>. Esta
         acción <strong>no</strong> borrará los jugadores pertenecientes a él.
         </p>
-        
+
         <p>¿Desea continuar?</p>
       </div>
       <div class="modal-footer">
@@ -59,5 +59,5 @@
 </script>
 
 <?php $this->load->view('partials/footer', ['extra_js' => [
-    '/assets/js/teams/index.js'    
+    '/assets/js/teams/index.js'
 ]]); ?>
