@@ -20,19 +20,37 @@ class Injury extends CI_Model {
     {
         $this->load->helper('custom_date');
 
-        $data = $this->input->post();
+        $data = $this->input->post([
+            'happened_at', 'player', 'days_off', 'description', 'type'
+        ]);
         $data['happened_at'] = datestr_to_unix($data['happened_at']);
 
         $this->db->insert($this->table_name, $data);
 
-        return $this->db->insert_id();
+        $injury_id = $this->db->insert_id();
+
+        if ($injury_id)
+        {
+            $player_id = $this->input->post('player');
+
+            $this->load->model('offsick');
+
+            if ($this->offsick->insert($injury_id, $player_id))
+            {
+                return 1;
+            }
+        }
+
+        return 0;
     }
 
     public function update ($id)
     {
         $this->load->helper('custom_date');
 
-        $data = $this->input->post();
+        $data = $this->input->post([
+            'happened_at', 'player', 'days_off', 'description', 'type'
+        ]);
         $data['happened_at'] = datestr_to_unix($data['happened_at']);
 
         $this->db->where('id', $id);

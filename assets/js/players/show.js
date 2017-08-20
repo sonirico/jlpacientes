@@ -6,6 +6,8 @@ player_history = (function () {
         var formContainer = $('#injuries-form-container');
         var injuryForm = $('#injury-form');
         var tableContainer = $('#injuries-table-container');
+        var offsickMainContainer = injuryForm.find('.offsick-container');
+        var offsickContainer = $('#offsick-stage-container');
         var tableObj = $('#player-history');
         var dataTableObj = {};
 
@@ -13,6 +15,8 @@ player_history = (function () {
             formContainer.hide();
             tableContainer.show();
             injuryForm[0].reset();
+            offsickMainContainer.show();
+            offsickContainer.hide();
         };
 
         var __loadData = function () {
@@ -131,6 +135,7 @@ player_history = (function () {
                     moment.unix(this.injury.happened_at).format('DD/MM/Y')
                 );
                 injuryForm.find('[name="days_off"]').val(this.injury.days_off);
+                injuryForm.find('.offsick-container').hide();
                 tinymce.get('injury-description').setContent(this.injury.description);
 
                 injuryForm.attr('action', INJURY_UPDATE);
@@ -188,13 +193,26 @@ player_history = (function () {
         };
 
         var __validateData = function () {
-            return {
+            var data = {
                 'happened_at': injuryForm.find('[name="happened_at"]').val().trim(),
                 'days_off': injuryForm.find('[name="days_off"]').val().trim(),
                 'description': tinymce.get('injury-description').getContent(),
                 'type': injuryForm.find('[name="type"]').val().trim(),
                 'player': injuryForm.find('[name="player"]').val().trim()
             };
+
+            var has_offsick = (injuryForm.find('[name="offsick"]').is(':checked') ? 1 : 0);
+            var current_stage = injuryForm.find('[name="current_stage"]').val();
+
+            if (has_offsick && parseInt(current_stage) < 1) {
+                alert('El campo "Fase de baja actual" es obligatorio');
+                return false;
+            } else {
+                data.has_offsick = has_offsick;
+                data.current_stage = current_stage;
+            }
+
+            return data;
         };
 
         this.events = function () {
@@ -221,6 +239,8 @@ player_history = (function () {
                 e.preventDefault();
 
                 var data = __validateData();
+
+                if (!data) return;
 
                 data.csrf_token = $('[name="csrf_token"]').attr('content').trim();
 
@@ -272,6 +292,11 @@ player_history = (function () {
                     }
 
                 });
+            });
+
+            // Toggle offsick creation
+            formContainer.find('[name="offsick"]').change(function () {
+                offsickContainer.toggle(500);
             });
         }
     };

@@ -25,14 +25,28 @@
     <?php endif; ?>
 </div>
 <div class="form-group" >
-    <label for="team-name" >Logo</label>
-    <input type="file" accept=".png" name="logo" id="team-logo" />
-    <?php if (isset($logo)): ?>
-    <img class="img img-responsive img-rounded"
-         width="128"
-         alt="<?php echo $name; ?>"
-         src="<?php echo base_url('assets/img/teams/' . $logo); ?>" />
-    <?php endif; ?>
+    <div class="row" >
+        <div class="col-md-6 logo-left" >
+        <label for="team-name" >Logo</label>
+        <input type="file" accept=".png" name="logo" id="team-logo" />
+        <div class="logo-requirements" >
+            <ul>
+                <li>La imagen cuanto más cuadrada, mejor</li>
+                <li>Ni el ancho ni el alto deben superar los 768 pixeles</li>
+                <li>El tamaño máximo permitido son 500Kb</li>
+            </ul>
+        </div>
+        </div>
+        <div class="col-md-6 logo-right" >
+            <?php if (isset($logo)): ?>
+            <img class="img img-responsive img-rounded"
+                width="128"
+                alt="<?php echo $name; ?>"
+                src="<?php echo base_url('assets/img/teams/' . $logo); ?>" />
+            <?php endif; ?>
+        </div>
+    </div>
+
 </div>
 <div class="form-group" >
     <button type="submit" class="btn btn-primary" id="team-create">

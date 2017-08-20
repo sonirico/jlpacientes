@@ -46,6 +46,26 @@
 
                 </div>
             </div>
+            <div class="row offsick-container" >
+                <div class="col-md-4" >
+                    <div class="checkbox" >
+                        <label>
+                            <input type="checkbox" name="offsick" >
+                            Dar de baja
+                        </label>
+                    </div>
+                    <div class="form-group" style="display: none" id="offsick-stage-container" >
+                        <select class="form-control" name="current_stage" id="current_stage" >
+                            <option value="0" >-- Selecciona fase actual --</option>
+                            <?php foreach (config_item('stages') as $stage_id => $stage_desc): ?>
+                            <option value="<?php echo $stage_id; ?>" >
+                                <?php echo $stage_desc; ?>
+                            </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
             <div class="row" >
                 <div class="col-md-12 form-group" >
                     <textarea class="form-control" name="description"
@@ -56,7 +76,6 @@
                 <div class="col-md-12" >
                     <button type="submit" class="btn btn-primary send" >Enviar</button>
                     <button type="button" class="btn btn-warning cancel" >Cancelar</button>
-                    <button type="reset" class="btn btn-secondary clear" >Limpiar</button>
                 </div>
             </div>
         </form>

@@ -5,7 +5,7 @@
 
 #players-container #players-table
 {
-    
+
     border-collapse: collapse !important;
 }
 
@@ -19,4 +19,9 @@
 #players-container #players-table tr.player-offsick
 {
     background-color: #FFBA8F;
+}
+
+#players-container #players-table .player-actions
+{
+    min-width: 120px;
 }

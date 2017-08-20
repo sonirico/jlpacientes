@@ -27,6 +27,15 @@
     </div>
 </div>
 
+<div class="template" id="button-action-container" >
+    <button class="btn btn-default btn-action btn-sm" type="button" data-action="edit" >
+        <i class="fa fa-pencil" ></i>
+    </button>
+    <button class="btn btn-danger btn-action btn-sm" type="button" data-action="delete" >
+        <i class="fa fa-trash" ></i>
+    </button>
+</div>
+
 <!-- Modal -->
 <div class="modal fade" id="delete-team-modal" tabindex="-1" role="dialog"
     aria-labelledby="delete-team-title" aria-hidden="true">

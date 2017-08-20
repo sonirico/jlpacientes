@@ -33,12 +33,12 @@ class Teams extends CI_Controller {
 
     public function update ($id) {
         $this->load->helper('custom_url');
-        
+
         if (false === $this->form_validation->run('teams/update'))
         {
             $this->edit($id);
-        } 
-        else 
+        }
+        else
         {
 
             $logo_name = null;
@@ -78,11 +78,11 @@ class Teams extends CI_Controller {
     public function store () {
 
         $this->load->helper('custom_url');
-        
+
         if (false === $this->form_validation->run('teams/store'))
         {
             $this->create();
-        } 
+        }
         else
         {
             $logo_name = null;
@@ -127,7 +127,7 @@ class Teams extends CI_Controller {
         {
             $this->output->set_status_header(200);
         }
-        else 
+        else
         {
             $this->output->set_status_header(404);
         }
@@ -144,7 +144,7 @@ class Teams extends CI_Controller {
     private function handle_logo () {
         $config['upload_path'] = './assets/img/teams/';
         $config['allowed_types'] = 'gif|jpg|png';
-        $config['max_size'] = 100;
+        $config['max_size'] = 500;
         $config['max_width'] = 768;
         $config['max_height'] = 768;
         $config['encrypt_name'] = true;

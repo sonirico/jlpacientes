@@ -79,9 +79,8 @@ create table phth_sessions (
 create table offsicks (
     id integer not null auto_increment primary key,
     player integer not null references players(id) on delete cascade,
-
+    injury integer null references injuries(id) on delete set null,
     created_at timestamp default current_timestamp,
-    happened_at integer,
-    description text,
-    duration smallint
+    ended_at timestamp null,
+    current_stage integer default 0
 );

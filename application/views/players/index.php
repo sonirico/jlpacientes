@@ -33,10 +33,10 @@
             class="btn btn-default btn-sm btn-action btn-edit" data-action="edit" >
         <i class="fa fa-pencil" aria-hidden="true" ></i>
     </button>
-    <button title="Cursar baja"
+    <!-- <button title="Cursar baja"
             class="btn btn-default btn-sm btn-action btn-offsick" data-action="offsick" >
         <i class="fa fa-thumbs-o-down" aria-hidden="true" ></i>
-    </button>
+    </button> -->
     <button title="Cursar alta"
             class="btn btn-success btn-sm btn-action btn-upsick" data-action="upsick" >
         <i class="fa fa-thumbs-o-up" aria-hidden="true" ></i>
@@ -90,11 +90,24 @@
                     Estás a punto de dar de baja a <em class="offsick-player-name" ></em>.
                 </p>
 
+                <div class="form-group" >
+                    <label for="offsick-current-state" >Fase actual</label>
+                    <select class="form-control"
+                        id="offsick-current-state" name="offsick-current-state" >
+                        <option value="0" >-- Selecciona fase actual --</option>
+                        <?php foreach (config_item('stages') as $stage_id => $stage_desc): ?>
+                        <option value="<?php echo $stage_id; ?>" >
+                            <?php echo $stage_desc; ?>
+                        </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
                 <p>¿Desea continuar?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-warning offsick-player-button">Cursar baja</button>
+                <button type="button" class="btn btn-warning offsick-player-button" disabled>Cursar baja</button>
             </div>
         </div>
     </div>
@@ -103,6 +116,7 @@
 
 <script type="text/javascript" >
     var positions = <?php echo json_encode($this->config->item('positions')); ?>;
+    var stages = <?php echo json_encode($this->config->item('stages')); ?>;
 </script>
 
 <?php $this->load->view('partials/footer', ['extra_js' => [

@@ -23,14 +23,26 @@ class Offsicks extends CI_Controller {
     }
 
     public function store () {
-        
+
         if ($this->offsick->insert($_POST)) {
-            echo 'sí'; 
+            echo 'sí';
         } else {
             echo 'no';
         }
-        
 
+
+    }
+
+    public function set_current_stage ($player_id)
+    {
+        if ($this->offsick->set_current_stage($player_id))
+        {
+            $this->output->set_status_header(200)->_display();
+        }
+        else
+        {
+            $this->output->set_status_header(404)->_display();
+        }
     }
 
     public function get_all_offsicks () {

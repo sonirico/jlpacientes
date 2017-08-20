@@ -12,7 +12,7 @@ class Player extends CI_Model {
 
     public $id_position;
     public $id_team;
-    
+
     private $table_name = "players";
 
     public function get_by_id ($id, $assoc = true)
@@ -21,7 +21,7 @@ class Player extends CI_Model {
             'id' => $id
         ]);
 
-        if ($assoc) 
+        if ($assoc)
         {
             return $query->row_array();
         }
@@ -83,7 +83,7 @@ class Player extends CI_Model {
     public function all () {
 
         $query = $this->db->get($this->table_name);
-        
+
         return $query->result_array();
 
     }
@@ -107,9 +107,11 @@ class Player extends CI_Model {
     }
 
     public function all_with_teams () {
-        $this->db->select('players.*, teams.name as team_name');
+        $this->db->select('players.*, teams.name as team_name, offsicks.current_stage as current_stage');
         $this->db->from('players');
         $this->db->join('teams', 'teams.id = players.team', 'left');
+        $this->db->join('offsicks', 'offsicks.player = players.id', 'left');
+        $this->db->where('offsicks.ended_at', null);
 
         $query = $this->db->get();
 
@@ -125,5 +127,9 @@ class Player extends CI_Model {
         $query = $this->db->get();
 
         return $query->row_array();
+    }
+
+    public function one_with_offsicks ($id) {
+
     }
 }

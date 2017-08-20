@@ -6,20 +6,20 @@
 
 <div class="container-fluid" >
     <div class="row" id="players-container" >
-        <div class="col-lg-8 offset-lg-2" >
+        <div class="col-lg-8 col-lg-offset-2" >
             <h3 class="text-center" >Actualizar jugador</h3>
-            <form action="/players/<?php echo $id; ?>/update/" method="POST" 
+            <form action="/players/<?php echo $id; ?>/update/" method="POST"
                 enctype="multipart/form-data" >
 
                 <?php $this->load->view('partials/status'); ?>
 
                 <?php $this->load->view('players/partials/form'); ?>
-                
+
             </form>
         </div>
     </div>
 </div>
 
 <?php $this->load->view('partials/footer', ['extra_js' => [
-    '/assets/js/players/edit.js'    
+    '/assets/js/players/edit.js'
 ]]); ?>

@@ -2,8 +2,8 @@
 
 
 $stages = [
-    1 => 'Fase 1:  Orientación, aproximación médica fisioterapia',
-    2 => 'Fase2: Fisioterapia, gimnasio, readaptación',
+    1 => 'Fase 1: Orientación, aproximación médica fisioterapia',
+    2 => 'Fase 2: Fisioterapia, gimnasio, readaptación',
     3 => 'Fase 3: Readptación parcial con el equipo, fisioterapia y gimnasio',
     4 => 'Fase 4: Readaptación equipo, fisioterapia'
 ];
@@ -23,7 +23,7 @@ $teams = [
     12 => 'Inf.A',
     13 => 'Inf.B',
     14 => 'Inf.C',
-    15 => 'Inf.D', 
+    15 => 'Inf.D',
     16 => 'Inf.E',
     17 => 'Alevin.A',
     18 => 'Alevin.B',

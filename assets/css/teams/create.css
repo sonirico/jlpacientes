@@ -1,3 +1,14 @@
 #teams-container {
     padding-top: 1em;
 }
+
+.logo-left .logo-requirements
+{
+    padding: 1em;
+}
+
+.logo-left .logo-requirements ul
+{
+    padding-left: 0px;
+    margin-left: 0px;
+}

@@ -42,13 +42,27 @@ teams = (function () {
                         'orderable': true,
                         'render': function (data, type, row, meta) {
                             if ('display' === type) {
-                                var link = document.createElement('a');
+                                var cont = $('<div>').append(
+                                    $('<div>').append(
+                                        $('<a>').attr({
+                                            'href': '/players/' + row.id + '/show/'
+                                        }).text(row.name + ' ' + row.surname)
+                                    )
+                                );
 
-                                link.href = '/players/' + row.id + '/show/';
-                                link.target = '_blank';
-                                link.innerText = row.name + " " + row.surname;
+                                if (Boolean(parseInt(row.offsick))) {
+                                    var select = $('<select>').addClass('form-control current-offsick-stage');
 
-                                return link.outerHTML;
+                                    Object.keys(stages).forEach(function (id) {
+                                        select.append(
+                                            $('<option>').val(id).text(stages[id]).attr('selected', id == row.current_stage)
+                                        );
+                                    });
+
+                                    cont.append($('<div>').append(select));
+                                }
+
+                                return cont.html();
                             }
 
                             return row.name + " " + row.surname;
@@ -124,7 +138,7 @@ teams = (function () {
                     {
                         'title': 'Acciones',
                         'data': null,
-                        'className': 'team-actions',
+                        'className': 'player-actions',
                         'visible': true,
                         'orderable': false,
                         'createdCell': function (cell, cellData, rowData, row, col) {
@@ -156,6 +170,23 @@ teams = (function () {
                     'url': DT_LANGUAGE_URL,
                 }
             });
+        });
+    };
+
+    var refreshOffisckState = function (e) {
+        var player = tableObj.row($(this).closest('tr')).data();
+
+        $.ajax({
+            'url': '/api/players/' + player.id + '/offsick/stage/',
+            'method': 'post',
+            'data': {
+                'csrf_token': $('[name="csrf_token"]').attr('content').trim(),
+                'stage': $(this).val()
+            }
+        }).done(function () {
+            alert('ok');
+        }).fail(function () {
+            alert('fail');
         });
     };
 
@@ -255,8 +286,6 @@ teams = (function () {
                     'csrf_token': $('[name="csrf_token"]').attr('content').trim()
                 }
             }).done(function (data) {
-                alert(data);
-
                 that.reload();
             }).fail(function (jqXHR, textStatus) {
                 that.reload();
@@ -265,14 +294,15 @@ teams = (function () {
             });
         });
 
-        // Player deletion
+        // Player offsick
         offsickModal.find('.offsick-player-button').click(function () {
             $.ajax({
                 'url': '/api/players/' + offsickModal.data('player').id + '/offsick/',
                 'method': 'post',
                 'dataType': 'json',
                 'data': {
-                    'csrf_token': $('[name="csrf_token"]').attr('content').trim()
+                    'csrf_token': $('[name="csrf_token"]').attr('content').trim(),
+                    'current_stage': offsickModal.find('[name="offsick-current-state"]').val()
                 }
             }).done(function (data) {
 
@@ -284,7 +314,12 @@ teams = (function () {
             });
         });
 
+        // Offsick events
+        offsickModal.find('[name="offsick-current-state"]').change(function () {
+            offsickModal.find('.offsick-player-button').prop('disabled', $(this).val() < 1);
+        });
 
+        tableObj.on('change', '.current-offsick-stage', refreshOffisckState);
     };
 
     return this;

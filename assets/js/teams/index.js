@@ -68,15 +68,7 @@ teams = (function () {
                         'orderable': false,
                         'createdCell': function (cell, cellData, rowData, row, col) {
                             $(cell).html(
-                                $('<button>')
-                                    .attr({
-                                        'type': 'button'
-                                    })
-                                    .addClass('btn btn-danger btn-sm btn-action')
-                                    .data('action', 'delete')
-                                    .append(
-                                        $('<i>').addClass('fa fa-trash')
-                                    )
+                                utils.template('#button-action-container')
                             );
                         }
                     }
@@ -148,6 +140,8 @@ teams = (function () {
                 modal.data('team', team);
                 modal.find('.deletion-team-name').text(team.name);
                 modal.modal('show');
+            } else if ('edit' == action) {
+                window.document.location = '/teams/' + team.id + '/edit/';
             }
         });
 
