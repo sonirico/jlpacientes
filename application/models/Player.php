@@ -77,6 +77,12 @@ class Player extends CI_Model {
             'offsick' => false
         ]);
 
+
+        $this->db->set('ended_at', 'NOW()', false);
+        $this->db->where('player', $id);
+        $this->db->where('ended_at', null);
+        $this->db->update('offsicks');
+
         return $this->db->affected_rows();
     }
 
@@ -111,7 +117,6 @@ class Player extends CI_Model {
         $this->db->from('players');
         $this->db->join('teams', 'teams.id = players.team', 'left');
         $this->db->join('offsicks', 'offsicks.player = players.id', 'left');
-        $this->db->where('offsicks.ended_at', null);
 
         $query = $this->db->get();
 
