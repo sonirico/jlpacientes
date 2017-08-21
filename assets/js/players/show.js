@@ -716,7 +716,7 @@ player_offsicks = (function () {
                                 orderable: true,
                                 render: function (data, type, row, meta) {
                                     if ('display' === type) {
-                                        return stages[data];
+                                        return stages[data] || '--';
                                     }
                                     return data;
                                 }
