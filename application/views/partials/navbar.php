@@ -28,17 +28,16 @@
             </li>
           </ul>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="/offsicks/"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <li class="nav-item">
+          <a class="nav-link" href="/offsicks/" >
             Bajas
-            <span class="caret"></span>
+            <!-- <span class="caret"></span> -->
           </a>
-          <ul class="dropdown-menu" >
+          <!-- <ul class="dropdown-menu" >
             <li class="nav-item" >
               <a class="dropdown-item" href="/offsicks/create/" >Nueva baja</a>
             </li>
-          </ul>
+          </ul> -->
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="/teams/"

@@ -74,3 +74,9 @@ td.injury-days-off
     width: 100%;
     border-collapse: collapse !important;
 }
+
+/* Offsicks */
+#offsicks-table-container
+{
+    padding-top: 1em;
+}

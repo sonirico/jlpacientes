@@ -20,6 +20,9 @@
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#sessions" role="tab">Sesiones fisio</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#offsicks" role="tab">Bajas</a>
+                    </li>
                 </ul>
 
                 <!-- Tab panes -->
@@ -32,6 +35,9 @@
                     </div>
                     <div class="tab-pane" id="sessions" role="tabpanel">
                         <?php $this->load->view('players/partials/phth-sessions'); ?>
+                    </div>
+                    <div class="tab-pane" id="offsicks" role="tabpanel">
+                        <?php $this->load->view('players/partials/offsicks'); ?>
                     </div>
                 </div>
             </div>
@@ -48,6 +54,11 @@
     var NUTRITION_CREATE = '<?php echo base_url('/api/nutrition/store/'); ?>';
     var NUTRITION_UPDATE = '<?php echo base_url('/api/nutrition/<nutrition_id>/update/'); ?>';
     var NUTRITION_DELETE = '<?php echo base_url('/api/nutrition/<nutrition_id>/delete/'); ?>';
+
+    var OFFSICKS_URL = '<?php echo base_url('/api/players/' . $id . '/offsicks/'); ?>';
+
+    var stages = <?php echo json_encode(config_item('stages')); ?>;
+
 </script>
 
 <?php $this->load->view('partials/footer', ['extra_js' => [

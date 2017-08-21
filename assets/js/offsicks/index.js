@@ -12,23 +12,13 @@ patients = (function () {
                 'lengthMenu': [5, 10, 20, 50, 100],
                 'columns': [
                     {
-                        'title': 'Nombre y apellidos',
+                        'title': 'Jugador',
                         'data': null,
                         'className': 'patient-name',
                         'visible': true,
                         'orderable': true,
                         'render': function (data, type, row, meta) {
                             return row.name + ' ' + row.surname;
-                        }
-                    },
-                    {
-                        'title': 'Posición',
-                        'data': 'position',
-                        'className': 'patient-position',
-                        'visible': true,
-                        'orderable': true,
-                        'render': function (data, type, row, meta) {
-                            return positions[data];
                         }
                     },
                     {
@@ -42,17 +32,17 @@ patients = (function () {
                             return data;
                         }
                     },
-                    {
-                        'title': 'Lesión',
-                        'data': 'injury',
-                        'className': 'patient-injury',
-                        'visible': true,
-                        'orderable': true,
-                        'render': function (data, type, row, meta) {
-                            if ('display' === type || 'filter' === type) return injuries[data];
-                            return data;
-                        }
-                    },
+                    // {
+                    //     'title': 'Lesión',
+                    //     'data': 'injury',
+                    //     'className': 'patient-injury',
+                    //     'visible': true,
+                    //     'orderable': true,
+                    //     'render': function (data, type, row, meta) {
+                    //         if ('display' === type || 'filter' === type) return injuries[data];
+                    //         return data;
+                    //     }
+                    // },
                     {
                         'title': 'Acciones',
                         'data': null,

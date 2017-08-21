@@ -104,12 +104,15 @@ $route['api/players/(:num)/offsick/stage']['post'] = 'offsicks/set_current_stage
 $route['api/players/(:num)/upsick'] = 'players/upsick/$1';
 $route['api/players/(:num)/history'] = 'players/injuries/$1';
 $route['api/players/(:num)/nutrition'] = 'players/nutrition/$1';
+$route['api/players/(:num)/offsicks'] = 'offsicks/for_player/$1';
 
-
+// Offsicks
+$route['offsick/'] = 'offsicks/index';
 $route['offsick/create'] = 'offsicks/create';
 $route['offsicks/store'] = 'offsicks/store';
 
-$route['offsicks/all'] = 'offsicks/get_all_offsicks';
+// Offsicks API
+$route['api/offsicks/all'] = 'offsicks/get_all_offsicks';
 
 
 $route['404_override'] = '';

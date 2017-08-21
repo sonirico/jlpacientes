@@ -8,6 +8,14 @@ class Offsick extends CI_Model {
         parent::__construct();
     }
 
+    public function for_player ($id)
+    {
+        $this->db->where('player', $id);
+        $this->db->order_by('created_at', 'DESC');
+
+        return $this->db->get($this->table_name)->result_array();
+    }
+
     public function insert ($injury_id, $player_id)
     {
         $this->db->insert($this->table_name, [
@@ -25,31 +33,6 @@ class Offsick extends CI_Model {
         return $this->db->affected_rows();
     }
 
-    public function insert_or_update ($id)
-    {
-        $current_stage = intval($this->input->post('current_stage'));
-
-        $query = $this->db->where([
-            'player' => $id,
-            'ended_at' => null
-        ])->get($this->table_name);
-
-        if ($query->num_rows() > 0)
-        {
-            die(var_dump($query->row_array()));
-        }
-        else
-        {
-            $this->db->insert($this->table_name, [
-                'player' => $id,
-                'stages' => json_encode([
-                    $current_stage => time()
-                ])
-            ]);
-        }
-
-        return 1;
-    }
 
     public function set_current_stage ($player_id)
     {

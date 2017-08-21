@@ -301,7 +301,6 @@ player_history = (function () {
         }
     };
 
-
     return new PlayerHistory();
 
 })();
@@ -650,12 +649,134 @@ player_nutrition = (function () {
 })();
 
 
+player_offsicks = (function () {
+
+    function PlayerOffsicks () {
+        var me = this;
+        var dataTableObj = null;
+
+        var loadData = function () {
+            return new Promise(function (resolve, reject) {
+                $.ajax({
+                    'method': 'GET',
+                    'url': OFFSICKS_URL,
+                    'dataType': 'json'
+                }).done(function (data) {
+                    resolve(data);
+                }).fail(function (jqXHR, textStatus) {
+                    reject(textStatus);
+                });
+            });
+        };
+
+        var loadTable = function (data, reload) {
+            return new Promise(function (resolve, reject) {
+
+                reload = reload || false;
+
+                if (reload) {
+                    dataTableObj.rows.clear();
+                    dataTableObj.rows.add(data).draw();
+                } else {
+                    dataTableObj = $('#player-offsicks-history').DataTable({
+                        processing: true,
+                        pageLength: 50,
+                        lengthMenu: [5, 10, 20, 50],
+                        columns: [
+                            {
+                                title: 'Fecha creación',
+                                data: 'created_at',
+                                className: 'player-offsick-created-at',
+                                visible: true,
+                                orderable: true,
+                                render: function (data, type, row, meta) {
+                                    return data;
+                                }
+                            },
+                            {
+                                title: 'Fecha alta',
+                                data: 'ended_at',
+                                className: 'player-offsick-ended-at',
+                                visible: true,
+                                orderable: true,
+                                render: function (data, type, row, meta) {
+                                    if ('display' === type) {
+                                        if (data) return data;
+                                        else return '-';
+                                    }
+
+                                    return data;
+                                }
+                            },
+                            {
+                                title: 'Estado actual',
+                                data: 'current_stage',
+                                className: 'player-offsick-current-stage',
+                                visible: true,
+                                orderable: true,
+                                render: function (data, type, row, meta) {
+                                    if ('display' === type) {
+                                        return stages[data];
+                                    }
+                                    return data;
+                                }
+                            }
+                        ],
+                        order: [
+                            [0, 'desc']
+                        ],
+                        data: data,
+                        initComplete: function () {
+                            resolve();
+                        },
+                        drawCallBack: function () {
+                            resolve();
+                        },
+                        language: {
+                            'url': DT_LANGUAGE_URL,
+                        },
+                        initComplete: function () {
+                            resolve();
+                        }
+                    });
+                }
+
+            });
+        };
+
+        this.init = function () {
+            return new Promise(function (rs, rj) {
+                loadData().then(function (data) {
+                    loadTable(data).then(function () {
+                        rs();
+                    });
+                }).catch(function (error) {
+                    console.error(error);
+                    rj(error);
+                });
+            });
+        };
+
+        this.events = function () {
+
+        };
+    }
+
+    return new PlayerOffsicks();
+
+})();
+
+
 $(function () {
     player_history.init().then(function () {
         player_history.events();
 
         player_nutrition.init().then(function () {
             player_nutrition.events();
+
+            player_offsicks.init().then(function () {
+                player_offsicks.events();
+            });
         });
     });
 

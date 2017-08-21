@@ -10,9 +10,12 @@ class Offsicks extends CI_Controller {
         $this->load->model('offsick');
     }
 
-    public function index () {
+    public function index ()
+    {
 
-        $this->load->view('offsicks/index', $this->get_initial_data());
+        $this->load->view('offsicks/index', [
+            'title' => 'Bajas'
+        ]);
 
     }
 
@@ -51,6 +54,19 @@ class Offsicks extends CI_Controller {
 
         echo json_encode($this->offsick->all());
 
+    }
+
+    public function for_player ($id)
+    {
+        $response = $this->offsick->for_player($id) or '{}';
+
+        $this->output
+            ->set_status_header(200)
+            ->set_content_type('application/json', 'utf-8')
+            ->set_output(json_encode($response))
+            ->_display();
+
+        exit;
     }
 
     private function get_initial_data () {
