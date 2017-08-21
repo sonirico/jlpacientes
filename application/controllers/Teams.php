@@ -13,7 +13,9 @@ class Teams extends CI_Controller {
 
     public function index () {
 
-        $this->load->view('teams/index');
+        $this->load->view('teams/index', [
+            'title' => 'Equipos'
+        ]);
 
     }
 
@@ -21,11 +23,15 @@ class Teams extends CI_Controller {
         $this->load->helper('form', 'url');
         $this->load->library('user_agent');
 
-        $this->load->view('teams/create');
+        $this->load->view('teams/create', [
+            'title' => 'Crear equipo'
+        ]);
     }
 
     public function edit ($id) {
         $data = $this->team->get_by_id($id);
+        $data['title'] = 'Editar ' . $data['name'];
+
         $this->load->library('user_agent');
 
         $this->load->view('teams/edit', $data);

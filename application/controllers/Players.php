@@ -16,7 +16,9 @@ class Players extends CI_Controller
     public function index()
     {
 
-        $this->load->view('players/index');
+        $this->load->view('players/index', [
+            'title' => 'Jugadores'
+        ]);
 
     }
 
@@ -27,7 +29,8 @@ class Players extends CI_Controller
         $this->load->library('user_agent');
 
         $this->load->view('players/create', [
-            'teams' => $this->team->all()
+            'teams' => $this->team->all(),
+            'title' => 'Nuevo jugador'
         ]);
     }
 
@@ -41,6 +44,7 @@ class Players extends CI_Controller
         $this->load->view('players/edit',
             array_merge(
                 ['teams' => $this->team->all()],
+                ['title' => 'Editar jugador ('.$player['name'].')'],
                 $player
             )
         );
@@ -48,9 +52,10 @@ class Players extends CI_Controller
 
     public function show($id)
     {
-        $player = $this->player->one_with_team($id);
+        $data = $this->player->one_with_team($id);
+        $data['title'] = 'Perfil de ' . $data['name'];
 
-        $this->load->view('players/show', $player);
+        $this->load->view('players/show', $data);
     }
 
     public function update($id)
