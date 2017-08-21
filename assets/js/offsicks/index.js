@@ -96,6 +96,9 @@ offsicks = (function () {
                 'data': data,
                 'initComplete': function () {
                     resolve();
+                },
+                'language': {
+                    'url': DT_LANGUAGE_URL,
                 }
             });
         });
