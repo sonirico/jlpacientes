@@ -10,6 +10,9 @@ offsicks = (function () {
                 'deferRender': true,
                 'pageLength': 50,
                 'lengthMenu': [5, 10, 20, 50, 100],
+                'order': [
+                    [0, 'desc']
+                ],
                 'columns': [
                     {
                         'title': 'Fecha baja',
@@ -77,18 +80,18 @@ offsicks = (function () {
                     //         return data;
                     //     }
                     // },
-                    {
-                        'title': 'Acciones',
-                        'data': null,
-                        'className': 'patient-actions',
-                        'visible': true,
-                        'orderable': false,
-                        'createdCell': function (cell, rowData, row, col) {
-                            // $(cell).html(
-                            //     utils.template('#button-container')
-                            // );
-                        }
-                    }
+                    // {
+                    //     'title': 'Acciones',
+                    //     'data': null,
+                    //     'className': 'patient-actions',
+                    //     'visible': true,
+                    //     'orderable': false,
+                    //     'createdCell': function (cell, rowData, row, col) {
+                    //         // $(cell).html(
+                    //         //     utils.template('#button-container')
+                    //         // );
+                    //     }
+                    // }
                 ],
                 'data': data,
                 'initComplete': function () {
