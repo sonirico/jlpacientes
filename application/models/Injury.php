@@ -33,12 +33,25 @@ class Injury extends CI_Model {
         {
             $player_id = $this->input->post('player');
 
-            $this->load->model('offsick');
+            // CI BUG??
+            $this->load->model('player', 'p');
 
-            if ($this->offsick->insert($injury_id, $player_id))
+            if (! $this->p->is_offsick($player_id))
             {
-                return 1;
+                if ($this->input->post('has_offsick'))
+                {
+                    $this->p->offsick($player_id);
+                }
+
+                $this->load->model('offsick');
+
+                if ($this->offsick->insert($injury_id, $player_id))
+                {
+                    return 1;
+                }
             }
+
+            return 2;
         }
 
         return 0;

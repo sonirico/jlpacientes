@@ -180,7 +180,7 @@ player_history = (function () {
 
             me.reset();
 
-            me.init(true);
+            return me.init(true);
         };
 
         this.reset = function () {
@@ -247,8 +247,10 @@ player_history = (function () {
                 $.ajax({
                     'url': $(this).attr('action').replace('<injury_id>', InjuryForm.injury.id),
                     'method': $(this).attr('method'),
-                    'data': data
-                }).done(function () {
+                    'data': data,
+                    'dataType': 'json'
+                }).done(function (data) {
+                    console.log(data);
                     me.reload();
                 }).fail(function (jqXHR, textStatus) {
                     alert(textStatus);
@@ -537,7 +539,7 @@ player_nutrition = (function () {
 
             me.reset();
 
-            me.init(true);
+            return me.init(true);
         };
 
         this.reset = function () {
@@ -671,12 +673,10 @@ player_offsicks = (function () {
 
         var loadTable = function (data, reload) {
             return new Promise(function (resolve, reject) {
-
-                reload = reload || false;
-
                 if (reload) {
-                    dataTableObj.rows.clear();
-                    dataTableObj.rows.add(data).draw();
+                    dataTableObj.clear();
+                    dataTableObj.rows.add(data);
+                    dataTableObj.draw();
                 } else {
                     dataTableObj = $('#player-offsicks-history').DataTable({
                         processing: true,
@@ -744,10 +744,12 @@ player_offsicks = (function () {
             });
         };
 
-        this.init = function () {
+        this.init = function (reload) {
+            reload = reload || false;
+
             return new Promise(function (rs, rj) {
                 loadData().then(function (data) {
-                    loadTable(data).then(function () {
+                    loadTable(data, reload).then(function () {
                         rs();
                     });
                 }).catch(function (error) {
@@ -757,8 +759,11 @@ player_offsicks = (function () {
             });
         };
 
-        this.events = function () {
+        this.reload = function () {
+            return me.init(true);
+        };
 
+        this.events = function () {
         };
     }
 
@@ -782,16 +787,18 @@ $(function () {
 
 
     $('[href="#history"]').on('shown.bs.tab', function () {
-        player_history.adjustTable();
+        player_history.reload().then(function () {
+            player_history.adjustTable();
+        });
     });
 
     $('[href="#nutrition"]').on('shown.bs.tab', function () {
-        player_nutrition.adjustTable();
-        // alert('sfdg');
+        player_nutrition.reload().then(function () {
+            player_nutrition.adjustTable();
+        });
     });
 
-    $('[href="#history"]').on('shown.bs.tab', function () {
-        // player_history.adjustTable();
+    $('[href="#offsicks"]').on('shown.bs.tab', function () {
+        player_offsicks.reload();
     });
-
 });

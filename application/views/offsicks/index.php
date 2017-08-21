@@ -21,17 +21,14 @@
     </div>
 </div>
 
-<?php $this->load->view('offsicks/partials/templates'); ?>
+<?php //$this->load->view('offsicks/partials/templates'); ?>
 
 <script type="text/javascript" >
-
-    var positions = <?php echo json_encode($positions); ?>;
-    var stages = <?php echo json_encode($stages); ?>;
-    var injuries = <?php echo json_encode($injuries); ?>;
-    var teams = <?php echo json_encode($teams); ?>;
-
+    var OFFSICKS_URL = '<?php echo base_url('/api/offsicks/all/'); ?>';
+    var stages = <?php echo json_encode(config_item('stages')); ?>;
+    var injuries = <?php echo json_encode(config_item('injuries')); ?>;
 </script>
 
 <?php $this->load->view('partials/footer', ['extra_js' => [
-    'assets/js/offsicks/index.js'    
+    'assets/js/offsicks/index.js'
 ]]); ?>

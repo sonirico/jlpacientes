@@ -38,11 +38,26 @@ class Injuries extends CI_Controller {
     {
         if (true === $this->form_validation->run('injuries/store'))
         {
-            if ($this->injury->insert() > 0) {
-
-                $this->output->set_status_header(200)->_display();
-
-                exit;
+            switch ($this->injury->insert())
+            {
+                case 0:
+                    $this->output->set_status_header(404)->_display();
+                    exit;
+                case 1:
+                    $this->output->set_status_header(200)
+                        ->set_content_type('application/json', 'utf-8')
+                        ->set_output(json_encode([
+                            'status' => 'added_with_offsick'
+                        ]))->_display();
+                    exit;
+                case 2: // player already offsick
+                    $this->output->set_status_header(200)
+                        ->set_content_type('application/json', 'utf-8')
+                        ->set_output(json_encode([
+                            'status' => 'added_without_offsick'
+                        ]))
+                        ->_display();
+                    exit;
             }
         }
 

@@ -1,5 +1,5 @@
 
-patients = (function () {
+offsicks = (function () {
 
     var tableObj = {};
 
@@ -12,18 +12,52 @@ patients = (function () {
                 'lengthMenu': [5, 10, 20, 50, 100],
                 'columns': [
                     {
+                        'title': 'Fecha baja',
+                        'data': 'created_at',
+                        'className': 'offsick-created-at',
+                        'visible': true,
+                        'orderable': true
+                    },
+                    {
+                        'title': 'Fecha alta',
+                        'data': 'ended_at',
+                        'className': 'offsick-ended-at',
+                        'visible': true,
+                        'orderable': true,
+                        'render': function (data, type, row, meta) {
+                            if ('display' === type) {
+                                if (data) return data;
+                                return '-';
+                            }
+
+                            return data;
+                        }
+                    },
+                    {
                         'title': 'Jugador',
-                        'data': null,
+                        'data': 'player_full_name',
                         'className': 'patient-name',
                         'visible': true,
                         'orderable': true,
                         'render': function (data, type, row, meta) {
-                            return row.name + ' ' + row.surname;
+                            if ('display' === type)
+                            {
+                                var link = document.createElement('a');
+
+                                link.href = "/players/" + row.player_id + '/show/';
+                                link.target = "_blank";
+                                link.title = "Ver perfil";
+                                link.textContent = data;
+
+                                return link.outerHTML;
+                            }
+
+                            return data;
                         }
                     },
                     {
                         'title': 'Fase',
-                        'data': 'stage',
+                        'data': 'current_stage',
                         'className': 'patient-stage',
                         'visible': true,
                         'orderable': true,
@@ -33,7 +67,7 @@ patients = (function () {
                         }
                     },
                     // {
-                    //     'title': 'Lesión',
+                    //     'title': 'Lesión asociada/',
                     //     'data': 'injury',
                     //     'className': 'patient-injury',
                     //     'visible': true,
@@ -50,9 +84,9 @@ patients = (function () {
                         'visible': true,
                         'orderable': false,
                         'createdCell': function (cell, rowData, row, col) {
-                            $(cell).html(
-                                utils.template('#button-container')
-                            );
+                            // $(cell).html(
+                            //     utils.template('#button-container')
+                            // );
                         }
                     }
                 ],
@@ -65,61 +99,41 @@ patients = (function () {
     };
 
     var loadData = function () {
-        var form = $('#patient-crud-form');
-
         return $.ajax({
-            'url': '/offsicks/all/',
+            'url': OFFSICKS_URL,
             'method': 'GET',
             'dataType': 'json'
-        }).promise();
+        });
     }
 
     return {
         'init': function () {
-            loadData()
-                .done(function (data) {
-                    loadTable(data)
-                        .then(function (data) {
-                            console.log(data);
-                            console.log('loaded!');
-                        }).catch(function (err) {
-                            console.log(err);
-                        });
+            return new Promise(function (resolve, reject) {
+
+                loadData().done(function (data) {
+
+                    loadTable(data).then(function (data) {
+                        console.log(data);
+                        console.log('loaded!');
+
+                        resolve();
+
+                    }).catch(function (err) {
+                        console.log(err);
+                    });
+
                 }).fail(function (jqXHR, textStatus) {
                     console.error(textStatus);
                 });
+            });
         },
         'events': function () {
-            // submitButtonObj.click(function (e) {
-            //     e.preventDefault();
 
-            //     var params = patientForm.serialize();
-
-            //     $.ajax({
-            //         'url': '/offsicks/save',
-            //         'method': patientForm.attr('method'),
-            //         'dataType': 'json',
-            //         'data': params
-            //     }).done(function (data) {
-            //         console.log('done', data);
-            //         this.init();
-            //     }).fail(function (jqXHR, textStatus) {
-            //         console.error('fail', textStatus);
-            //     });
-            // });
-
-            // $('#injury-date').datepicker({
-            //     format: "dd/mm/yyyy",
-            //     todayBtn: "linked",
-            //     clearBtn: true,
-            //     language: "es",
-            //     autoclose: true,
-            //     todayHighlight: true
-            // });
         }
     };
 })();
 
 
-patients.init();
-patients.events();
+offsicks.init().then(function () {
+    offsicks.events();
+});

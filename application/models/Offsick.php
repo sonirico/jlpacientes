@@ -24,12 +24,6 @@ class Offsick extends CI_Model {
             'current_stage' => intval($this->input->post('current_stage'))
         ]);
 
-        if ($this->input->post('has_offsick'))
-        {
-            $this->load->model('player');
-            $this->player->offsick($player_id);
-        }
-
         return $this->db->affected_rows();
     }
 
@@ -58,11 +52,30 @@ class Offsick extends CI_Model {
         return 0;
     }
 
+    public function all_with_players () {
+
+        $this->db->select(
+            'offsicks.*, ' .
+            'CONCAT(players.name, " ", players.surname) as player_full_name, '.
+            'players.id as player_id'
+        );
+
+        $this->db->from($this->table_name);
+        $this->db->join('players', 'players.id = offsicks.player');
+        $this->db->order_by('offsicks.created_at', 'desc');
+        $this->db->order_by('players.name', 'asc');
+
+        $query = $this->db->get();
+
+        return $query->result_array();
+
+    }
+
     public function all () {
 
-        $query = $this->db->get('offsick', 10);
+        $query = $this->db->get($this->table_name);
 
-        return $query->result();
+        return $query->result_array();
 
     }
 }

@@ -52,7 +52,7 @@ class Offsicks extends CI_Controller {
 
         header('Content-Type: application/json');
 
-        echo json_encode($this->offsick->all());
+        echo json_encode($this->offsick->all_with_players());
 
     }
 

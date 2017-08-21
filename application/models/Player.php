@@ -132,4 +132,22 @@ class Player extends CI_Model {
     public function one_with_offsicks ($id) {
 
     }
+
+    public function is_offsick ($player_id)
+    {
+        $this->db->where('id', $player_id);
+        $this->db->where('offsick >', 0);
+
+        if ($this->db->get($this->table_name)->num_rows() > 0)
+        {
+            return true;
+        }
+        else
+        {
+            $this->db->where('player', $player_id);
+            $this->db->where('ended_at', null);
+
+            return $this->db->get('offsicks')->num_rows() > 0;
+        }
+    }
 }
