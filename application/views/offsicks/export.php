@@ -1,5 +1,6 @@
 <html>
 <head>
+    <title>Bajas</title>
     <!-- Latest compiled and minified CSS -->
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
     <!-- Optional theme -->
@@ -171,7 +172,10 @@
                                 </div>
                                 <div class="width-50" >
                                     <p class="label">Duración aproximada alta médica (días):</p>
-                                    <?php echo intval($i['days_off']) or '-';  ?>
+                                    <?php
+                                        $days = intval($i['days_off']);
+                                        echo ($days > 0 ? $days : 'N/A');
+                                    ?>
                                 </div>
                             </div>
 
