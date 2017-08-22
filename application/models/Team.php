@@ -5,7 +5,7 @@ class Team extends CI_Model {
     public $id;
     public $name;
     public $logo;
-    
+
     private $table_name = "teams";
 
     public function get_by_id ($id, $assoc = true)
@@ -14,7 +14,7 @@ class Team extends CI_Model {
             'id' => $id
         ]);
 
-        if ($assoc) 
+        if ($assoc)
         {
             return $query->row_array();
         }
@@ -61,8 +61,24 @@ class Team extends CI_Model {
     public function all () {
 
         $query = $this->db->get($this->table_name);
-        
+
         return $query->result_array();
 
+    }
+
+    public function has_offsick_players ($id)
+    {
+        $this->db->where('team', $id);
+        $this->db->where('offsick', true);
+
+        return $this->db->get('players')->num_rows() > 0;
+    }
+
+    public function offsick_players ($id)
+    {
+        $this->db->where('team', $id);
+        $this->db->where('offsick', true);
+
+        return $this->db->get('players')->result_array();
     }
 }

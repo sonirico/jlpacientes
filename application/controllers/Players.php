@@ -183,7 +183,6 @@ class Players extends CI_Controller
             'injuries' => $this->player->injuries($id)
         ], true);
 
-
         $this->pdf->generate($html);
     }
 

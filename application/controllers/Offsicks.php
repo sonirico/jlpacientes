@@ -69,6 +69,15 @@ class Offsicks extends CI_Controller {
         exit;
     }
 
+    public function export ()
+    {
+        $this->load->library('pdf');
+
+        $html = $this->load->view('offsicks/export', [], true);
+
+        $this->pdf->generate($html);
+    }
+
     private function get_initial_data () {
         return [
             'stages' => $this->config->item('stages'),

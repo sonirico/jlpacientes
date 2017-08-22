@@ -108,6 +108,7 @@ $route['api/players/(:num)/offsicks'] = 'offsicks/for_player/$1';
 
 // Offsicks
 $route['offsick/'] = 'offsicks/index';
+$route['offsick/export'] = 'offsicks/export';
 $route['offsick/create'] = 'offsicks/create';
 $route['offsicks/store'] = 'offsicks/store';
 

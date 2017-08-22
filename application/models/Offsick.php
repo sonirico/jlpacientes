@@ -71,11 +71,22 @@ class Offsick extends CI_Model {
 
     }
 
-    public function all () {
+    public function all ()
+    {
 
         $query = $this->db->get($this->table_name);
 
         return $query->result_array();
 
+    }
+
+    public function get_injury ($offsick_id)
+    {
+        $this->db->select('injuries.*');
+        $this->db->from('offsicks');
+        $this->db->join('injuries', 'offsicks.injury = injuries.id');
+        $this->db->where('offsicks.id', $offsick_id);
+
+        return $this->db->get()->row_array();
     }
 }

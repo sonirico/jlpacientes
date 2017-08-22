@@ -155,4 +155,14 @@ class Player extends CI_Model {
             return $this->db->get('offsicks')->num_rows() > 0;
         }
     }
+
+    public function get_offsick ($player_id)
+    {
+        $this->db->where('player', $player_id);
+        $this->db->where('ended_at ', null);
+        $this->db->order_by('created_at', 'desc');
+        $this->db->limit(1);
+
+        return $this->db->get('offsicks')->row_array();
+    }
 }

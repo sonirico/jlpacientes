@@ -24,7 +24,11 @@ class Injuries extends CI_Controller {
         {
             if ($this->injury->update($id) > 0) {
 
-                $this->output->set_status_header(200)->_display();
+                $this->output->set_status_header(200)
+                    ->set_content_type('application/json', 'utf-8')
+                    ->set_output(json_encode([
+                        'status' => 'ok'
+                    ]))->_display();
 
                 exit;
 
