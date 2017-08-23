@@ -107,7 +107,7 @@ teams = (function () {
                         'orderable': true,
                         'render': function (data, type, row, meta) {
                             if (data) {
-                                return positions[data];
+                                return positions[data] || '-';
                             }
 
                             return '-- Ninguna --';
