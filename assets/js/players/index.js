@@ -75,8 +75,14 @@ teams = (function () {
                         'visible': true,
                         'orderable': true,
                         'render': function (data, type, row, meta) {
-                            var then = moment.unix(data);
-                            return moment().diff(moment.unix(data), 'years');
+                            if ('display' === type) {
+                                var then = moment.unix(data);
+                                var anos = moment().diff(moment.unix(data), 'years');
+
+                                return moment(then).format('DD/MM/Y') + ' (' + anos + ' años)';
+                            }
+
+                            return data;
                         }
                     },
                     {

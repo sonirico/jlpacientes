@@ -69,7 +69,7 @@ class Team extends CI_Model {
     public function has_offsick_players ($id)
     {
         $this->db->where('team', $id);
-        $this->db->where('offsick', true);
+        $this->db->where('offsick >', 0);
 
         return $this->db->get('players')->num_rows() > 0;
     }
@@ -77,7 +77,7 @@ class Team extends CI_Model {
     public function offsick_players ($id)
     {
         $this->db->where('team', $id);
-        $this->db->where('offsick', true);
+        $this->db->where('offsick >', 0);
 
         return $this->db->get('players')->result_array();
     }
