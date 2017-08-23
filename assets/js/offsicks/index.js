@@ -65,7 +65,7 @@ offsicks = (function () {
                         'visible': true,
                         'orderable': true,
                         'render': function (data, type, row, meta) {
-                            if ('display' === type) return stages[data];
+                            if ('display' === type) return (stages[data] || 'N/A');
                             return data;
                         }
                     },

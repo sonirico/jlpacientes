@@ -62,25 +62,37 @@ class Player extends CI_Model {
         return $this->db->affected_rows();
     }
 
-    public function offsick ($id) {
-        $this->db->where('id', $id);
+    public function offsick ($p_id, $offsick_id) {
+        $this->db->where('id', $p_id);
         $this->db->update($this->table_name, [
-            'offsick' => true
+            'offsick' => $offsick_id
         ]);
 
         return $this->db->affected_rows();
     }
 
     public function upsick ($id) {
+
+        $offsick_id = -1;
+
+        // Select offsick id
+        $this->db->select('offsick')->from($this->table_name)->where('id', $id);
+        $offsick_id = $this->db->get()->row()->offsick;
+
+        if (! $offsick_id) return 0;
+
+        // Remove offsick reference in players table
         $this->db->where('id', $id);
         $this->db->update($this->table_name, [
-            'offsick' => false
+            'offsick' => null
         ]);
 
+        if ($this->db->affected_rows() < 1) return 1;
+
+        // Set offsick ended at
 
         $this->db->set('ended_at', 'NOW()', false);
-        $this->db->where('player', $id);
-        $this->db->where('ended_at', null);
+        $this->db->where('id', $offsick_id);
         $this->db->update('offsicks');
 
         return $this->db->affected_rows();
@@ -116,7 +128,7 @@ class Player extends CI_Model {
         $this->db->select('players.*, teams.name as team_name, offsicks.current_stage as current_stage');
         $this->db->from('players');
         $this->db->join('teams', 'teams.id = players.team', 'left');
-        $this->db->join('offsicks', 'offsicks.player = players.id', 'left');
+        $this->db->join('offsicks', 'offsicks.id = players.offsick', 'left');
 
         $query = $this->db->get();
 
@@ -140,20 +152,12 @@ class Player extends CI_Model {
 
     public function is_offsick ($player_id)
     {
-        $this->db->where('id', $player_id);
-        $this->db->where('offsick >', 0);
+        return $this->db
+            ->where('id', $player_id)
+            ->where('offsick >', 0)
+            ->get($this->table_name)
+            ->num_rows() > 0;
 
-        if ($this->db->get($this->table_name)->num_rows() > 0)
-        {
-            return true;
-        }
-        else
-        {
-            $this->db->where('player', $player_id);
-            $this->db->where('ended_at', null);
-
-            return $this->db->get('offsicks')->num_rows() > 0;
-        }
     }
 
     public function get_offsick ($player_id)

@@ -84,3 +84,8 @@ create table offsicks (
     ended_at timestamp null,
     current_stage integer default 0
 );
+
+
+alter table players drop column `offsick`;
+alter table players add column `offsick` integer default null,
+add foreign key players(offsick) references offsicks(id) on delete set null;

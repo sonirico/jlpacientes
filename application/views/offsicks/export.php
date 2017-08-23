@@ -148,7 +148,11 @@
                                 </div>
                                 <div class="width-25" >
                                     <p class="label">Fecha de la lesión</p>
-                                    <?php echo date("Y-m-d", intval($i['happened_at'])); ?>
+                                    <?php if ($i): ?>
+                                        <?php echo date("Y-m-d", intval($i['happened_at'])); ?>
+                                    <?php else: ?>
+                                        <i>Sin lesión asociada</i>
+                                    <?php endif;?>
                                 </div>
                                 <div class="width-25" >
                                     <p class="label">Fecha de la baja: </p>
@@ -168,20 +172,28 @@
                                 </div>
                                 <div class="width-50" >
                                     <p class="label">Duración aproximada alta médica (días):</p>
-                                    <?php
-                                        $days = intval($i['days_off']);
-                                        echo ($days > 0 ? $days : 'N/A');
-                                    ?>
+                                    <?php if ($i): ?>
+                                        <?php
+                                            $days = intval($i['days_off']);
+                                            echo ($days > 0 ? $days : 'N/A');
+                                        ?>
+                                    <?php else: ?>
+                                        <i>Sin lesión asociada</i>
+                                    <?php endif;?>
                                 </div>
                             </div>
 
                             <div class="width-100" >
                                 <p class="label">Diagnóstico:</p>
 
-                                <div class="diagnosis" ><?=$i['description'];?></div>
+                                <div class="diagnosis" >
+                                    <?php if ($i): ?>
+                                        <?=$i['description'];?>
+                                    <?php else: ?>
+                                        <i>Sin lesión asociada</i>
+                                    <?php endif;?>
+                                </div>
                             </div>
-
-
 
                             <div class="separator"  />
                         </div>

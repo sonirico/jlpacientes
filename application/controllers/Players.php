@@ -117,27 +117,27 @@ class Players extends CI_Controller
         exit;
     }
 
-    public function offsick($id)
-    {
-        $response = $this->player->offsick($id);
+    // public function offsick($id)
+    // {
+    //     $response = $this->player->offsick($id);
 
-        if (intval($response) > 0) {
-            $this->output
-                ->set_status_header(200)
-                ->set_content_type('application/json', 'utf-8')
-                ->set_output(json_encode($response))
-                ->_display();
-        } else {
-            $this->output
-                ->set_status_header(404)
-                ->set_content_type('application/json', 'utf-8')
-                ->set_output(json_encode($response))
-                ->_display();
-        }
+    //     if (intval($response) > 0) {
+    //         $this->output
+    //             ->set_status_header(200)
+    //             ->set_content_type('application/json', 'utf-8')
+    //             ->set_output(json_encode($response))
+    //             ->_display();
+    //     } else {
+    //         $this->output
+    //             ->set_status_header(404)
+    //             ->set_content_type('application/json', 'utf-8')
+    //             ->set_output(json_encode($response))
+    //             ->_display();
+    //     }
 
 
-        exit;
-    }
+    //     exit;
+    // }
 
     public function upsick($id)
     {

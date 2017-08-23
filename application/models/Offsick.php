@@ -24,7 +24,7 @@ class Offsick extends CI_Model {
             'current_stage' => intval($this->input->post('current_stage'))
         ]);
 
-        return $this->db->affected_rows();
+        return $this->db->insert_id();
     }
 
 

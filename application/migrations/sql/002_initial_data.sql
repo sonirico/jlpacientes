@@ -1,11 +1,11 @@
 
-create table users (
-    id integer not null auto_increment primary key,
-    username varchar (32) not null unique,
-    email varchar (255) not null unique,
-    password varchar (255),
-    remember_token text
-);
+-- create table users (
+--     id integer not null auto_increment primary key,
+--     username varchar (32) not null unique,
+--     email varchar (255) not null unique,
+--     password varchar (255),
+--     remember_token text
+-- );
 
 insert into teams (`name`) values
 ('SD Ponferradina'),
@@ -27,10 +27,10 @@ insert into teams (`name`) values
 --     offsick boolean default false
 -- );
 
-insert into players (`position`, team, nif, birthday, `name`, surname, address, contact, offsick) values
-(1, 1, '12345678K', 730720000, 'Marcos', 'Sánchez Benedicto', '', '678679670', false),
-(2, 2, '12345679K', 630720000, 'Zurdo', 'Bierz0', '', '778679670', false),
-(3, 3, '12345670K', 830720000, 'JL', 'Power', '', '678649670', true)
+insert into players (`position`, team, nif, birthday, `name`, surname, address, contact) values
+(1, 1, '12345678K', 730720000, 'Marcos', 'Sánchez Benedicto', '', '678679670'),
+(2, 2, '12345679K', 630720000, 'Zurdo', 'Bierz0', '', '778679670'),
+(3, 3, '12345670K', 830720000, 'JL', 'Power', '', '678649670')
 ;
 
 --
