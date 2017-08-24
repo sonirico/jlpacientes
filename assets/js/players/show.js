@@ -771,6 +771,266 @@ player_offsicks = (function () {
 
 })();
 
+player_sessions = (function () {
+    function PlayerSessions() {
+        var me = this;
+
+        var formContainer = $('#sessions-form-container');
+        var sessionForm = $('#sessions-form');
+        var tableContainer = $('#sessions-table-container');
+        var tableObj = $('#player-session-history');
+        var dataTableObj = {};
+
+        var __resetUI = function () {
+            formContainer.hide();
+            tableContainer.show();
+            sessionForm[0].reset();
+        };
+
+        var __loadData = function () {
+            return $.ajax({
+                'url': SESSIONS_URL_INDEX,
+                'method': 'get',
+                'dataType': 'json'
+            });
+        };
+
+        var __populateTable = function (data, reload) {
+
+            return new Promise(function (resolve, reject) {
+                reload = reload || false;
+
+                if (reload) {
+                    dataTableObj.clear();
+                    dataTableObj.rows.add(data);
+                    dataTableObj.draw();
+                } else {
+                    dataTableObj = tableObj.DataTable({
+                        processing: true,
+                        pageLength: 50,
+                        lengthMenu: [5, 10, 20, 50],
+                        columns: [
+                            {
+                                title: 'Fecha',
+                                data: 'happened_at',
+                                className: 'sessions-happened-at',
+                                visible: true,
+                                orderable: true,
+                                render: function (data, type, row, meta) {
+                                    switch (type) {
+                                        case "display":
+                                        case "filter":
+                                            return moment.unix(data).format('DD/MM/Y');
+                                        case "sort":
+                                            return data;
+                                    }
+
+                                    return data;
+                                }
+                            },
+                            {
+                                title: 'Comentarios',
+                                data: 'comments',
+                                className: 'session-comments',
+                                visible: true,
+                                orderable: false,
+                                createdCell: function (cell, cellData) {
+                                    $(cell).html(cellData);
+                                }
+                            },
+                            {
+                                title: '',
+                                data: null,
+                                className: 'injury-actions',
+                                visible: true,
+                                orderable: false,
+                                createdCell: function (cell, cellData) {
+                                    $(cell).html(
+                                        utils.template('#session-buttons-container')
+                                    );
+                                }
+                            }
+                        ],
+                        order: [
+                            [0, 'desc']
+                        ],
+                        data: data,
+                        initComplete: function () {
+                            resolve();
+                        },
+                        drawCallBack: function () {
+                            resolve();
+                        },
+                        language: {
+                            'url': DT_LANGUAGE_URL,
+                        }
+                    });
+                }
+            });
+
+        };
+
+        var SessionForm = {
+            session: {},
+            deleteModal: $('#session-deletion-modal'),
+            edit: function () {
+                sessionForm.find('[name="happened_at"]').val(
+                    moment.unix(this.session.happened_at).format('DD/MM/Y')
+                );
+                sessionForm.find('.offsick-container').hide();
+                tinymce.get('session-comments').setContent(this.session.comments);
+
+                sessionForm.attr({
+                    'action': SESSIONS_URL_UPDATE.replace('<id>', this.session.id),
+                    'method': 'post'
+                });
+
+                formContainer.show();
+                tableContainer.hide();
+            },
+            destroy: function () {
+                var dataContainer = this.deleteModal.find('.session-data');
+
+                dataContainer.find('.happened_at').text(moment.unix(this.session.happened_at).format('DD/MM/Y'));
+                dataContainer.find('.comments').html(this.session.comments);
+
+                this.deleteModal.modal('show');
+            }
+        };
+
+        this.init = function (reload) {
+            reload = reload || false;
+
+            return new Promise(function (resolve, reject) {
+                __loadData()
+                    .done(function (data) {
+
+                        __populateTable(data, reload)
+                            .then(function (data) {
+                                resolve();
+                            }).catch(function (err) {
+                                console.log(err);
+                                reject(err);
+                            });
+
+                    }).fail(function (jqXHR, textStatus) {
+
+                });
+            });
+
+        };
+
+        this.reload = function () {
+
+            me.reset();
+
+            return me.init(true);
+        };
+
+        this.reset = function () {
+
+            __resetUI();
+        };
+
+        this.adjustTable = function () {
+            dataTableObj.columns.adjust().draw();
+        };
+
+        var __validateData = function () {
+            return {
+                'happened_at': sessionForm.find('[name="happened_at"]').val().trim(),
+                'comments': tinymce.get('session-comments').getContent(),
+                'player': sessionForm.find('[name="player"]').val().trim()
+            };
+        };
+
+        this.events = function () {
+            $('#session-happened-at').datepicker({
+                format: "dd/mm/yyyy",
+                todayBtn: "linked",
+                clearBtn: true,
+                language: "es",
+                autoclose: true,
+                todayHighlight: true
+            });
+
+            $('#new-session-button').click(function () {
+                formContainer.show();
+                tableContainer.hide();
+                sessionForm.attr('method', 'post');
+                sessionForm.attr('action', SESSIONS_URL_CREATE);
+            });
+
+            formContainer.find('.cancel').click(function () {
+                __resetUI();
+            });
+
+            sessionForm.submit(function (e) {
+                e.preventDefault();
+
+                var data = __validateData();
+
+                if (!data) return;
+
+                data.csrf_token = $('[name="csrf_token"]').attr('content').trim();
+
+                $.ajax({
+                    'url': $(this).attr('action'),
+                    'method': 'post',
+                    'data': data,
+                    'dataType': 'json'
+                }).done(function (data) {
+                    console.log(data);
+                    me.reload();
+                }).fail(function (jqXHR, textStatus) {
+                    alert(textStatus);
+                }).always(function () {
+
+                });
+            });
+
+            tableObj.on('click', '.btn-action', function () {
+                var btn = $(this);
+                var action = btn.data('action');
+                var session = dataTableObj.row(btn.closest('tr')).data();
+
+                SessionForm.session = session;
+
+                switch (action) {
+                    case "edit":
+                        SessionForm.edit();
+                        break;
+                    case "delete":
+                        SessionForm.destroy();
+                        break;
+                }
+            });
+
+            $('#delete-session-button').click(function () {
+                $.when(
+                    $.ajax({
+                        url: SESSIONS_URL_DELETE.replace('<id>', SessionForm.session.id),
+                        method: 'post',
+                        data: {
+                            csrf_token: $('[name="csrf_token"]').attr('content').trim()
+                        }
+                    })
+                ).then(function (data, textStatus, jqXHR) {
+                    console.log(textStatus);
+
+                    if (200 === jqXHR.status ) {
+                        me.reload();
+                        SessionForm.deleteModal.modal('hide');
+                    }
+
+                });
+            });
+        }
+    };
+
+    return new PlayerSessions();
+})();
+
 
 $(function () {
     player_history.init().then(function () {
@@ -779,8 +1039,12 @@ $(function () {
         player_nutrition.init().then(function () {
             player_nutrition.events();
 
-            player_offsicks.init().then(function () {
-                player_offsicks.events();
+            player_sessions.init().then(function () {
+                player_sessions.events();
+
+                player_offsicks.init().then(function () {
+                    player_offsicks.events();
+                });
             });
         });
     });
@@ -798,7 +1062,15 @@ $(function () {
         });
     });
 
+    $('[href="#sessions"]').on('shown.bs.tab', function () {
+        player_sessions.reload().then(function () {
+            player_sessions.adjustTable();
+        });
+    });
+
     $('[href="#offsicks"]').on('shown.bs.tab', function () {
-        player_offsicks.reload();
+        player_offsicks.reload().then(function () {
+            player_offsicks.adjustTable();
+        });
     });
 });

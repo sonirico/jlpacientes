@@ -57,6 +57,11 @@
 
     var OFFSICKS_URL = '<?php echo base_url('/api/players/' . $id . '/offsicks/'); ?>';
 
+    var SESSIONS_URL_INDEX = '<?php echo base_url('/api/sessions/' . $id . '/'); ?>';
+    var SESSIONS_URL_CREATE = '<?php echo base_url('/api/sessions/post'); ?>';
+    var SESSIONS_URL_UPDATE = '<?php echo base_url('/api/sessions/<id>/put'); ?>';
+    var SESSIONS_URL_DELETE = '<?php echo base_url('/api/sessions/<id>/delete'); ?>';
+
     var stages = <?php echo json_encode(config_item('stages')); ?>;
 
 </script>

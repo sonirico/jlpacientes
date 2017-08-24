@@ -66,13 +66,12 @@ create table nutrition (
 );
 
 
-create table phth_sessions (
+create table ph_sessions (
     id integer not null auto_increment primary key,
     player integer not null references players(id) on delete cascade,
 
-    type integer,
-    scheduled_at integer,
-    description text
+    happened_at integer,
+    comments text
 );
 
 

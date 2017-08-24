@@ -263,6 +263,25 @@ $nutrition_store_and_update = [
     ]
 ];
 
+$phsessions_create_or_update = [
+    [
+        'field' => 'happened_at',
+        'label' => 'Fecha de sesión',
+        'rules' => 'trim|required|callback_happened_at_check',
+        'errors' => [
+            'required' => 'El campo "%s" es obligatorio',
+        ]
+    ],
+    [
+        'field' => 'comments',
+        'label' => 'Comentarios',
+        'rules' => 'trim|max_length[99999]',
+        'errors' => [
+            'max_length' => 'El campo "%s" es demasiado largo'
+        ]
+    ]
+];
+
 
 $config = [
     'teams/store' => $teams_store_and_update,
@@ -275,6 +294,7 @@ $config = [
     'injuries/update' => $injuries_store_and_update,
 
     'nutrition/update_store' => $nutrition_store_and_update,
+    'phsessions/create_or_update' => $phsessions_create_or_update,
 
     'login' => $login,
     'password_reset' => $password_reset

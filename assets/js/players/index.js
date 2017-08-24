@@ -69,7 +69,7 @@ teams = (function () {
                         }
                     },
                     {
-                        'title': 'Edad',
+                        'title': 'Fecha  / Edad',
                         'className': 'player-age',
                         'data': 'birthday',
                         'visible': true,
@@ -79,7 +79,7 @@ teams = (function () {
                                 var then = moment.unix(data);
                                 var anos = moment().diff(moment.unix(data), 'years');
 
-                                return moment(then).format('DD/MM/Y') + ' (' + anos + ' años)';
+                                return moment(then).format('DD/MM/Y') + ' | ' + anos + ' años';
                             }
 
                             return data;

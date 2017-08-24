@@ -115,6 +115,12 @@ $route['offsicks/store'] = 'offsicks/store';
 // Offsicks API
 $route['api/offsicks/all'] = 'offsicks/get_all_offsicks';
 
+// PH Sessions
+$route['api/sessions/(:num)'] = 'phsessions/index/$1';
+$route['api/sessions/(:num)/put'] = 'phsessions/update/$1';
+$route['api/sessions/post'] = 'phsessions/store';
+$route['api/sessions/(:num)/delete'] = 'phsessions/destroy/$1';
+
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
