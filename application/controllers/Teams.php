@@ -139,6 +139,14 @@ class Teams extends CI_Controller {
         }
     }
 
+    public function all_with_players () {
+
+        header('Content-Type: application/json');
+
+        echo json_encode($this->team->all_with_players());
+
+    }
+
     public function all () {
 
         header('Content-Type: application/json');

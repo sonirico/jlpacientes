@@ -9,11 +9,18 @@
     border-collapse: collapse !important;
 }
 
-/*.dataTables_wrapper*/
-/*{*/
-    /*padding-left: 0px;*/
-    /*padding-right: 0px;*/
-/*}*/
+.dataTables_wrapper .table-filter
+{
+    margin-right: 1em;
+}
+
+@media (max-width: 768px) {
+    .dataTables_wrapper .table-filter
+    {
+        margin-right: 0;
+        margin-bottom: 1em;
+    }
+}
 
 
 #players-container #players-table tr.player-offsick

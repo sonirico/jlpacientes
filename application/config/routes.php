@@ -77,6 +77,7 @@ $route['teams/store'] = 'teams/store';
 
 // Teams API
 $route['api/teams'] = 'teams/all';
+$route['api/teams/players'] = 'teams/all_with_players';
 $route['api/teams/(:num)/delete'] = 'teams/destroy/$1';
 
 // Injuries API

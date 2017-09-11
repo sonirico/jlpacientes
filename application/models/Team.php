@@ -61,6 +61,14 @@ class Team extends CI_Model {
 
     public function all () {
 
+        $query = $this->db->get($this->table_name);
+
+        return $query->result_array();
+
+    }
+
+    public function all_with_players () {
+
         $query = $this->db->get($this->view_name);
 
         return $query->result_array();

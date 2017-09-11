@@ -119,7 +119,7 @@ teams = (function () {
 
     var loadData = function () {
         return $.ajax({
-            'url': '/api/teams/',
+            'url': '/api/teams/players/',
             'method': 'GET',
             'dataType': 'json'
         }).promise();

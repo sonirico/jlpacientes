@@ -117,6 +117,18 @@
 <script type="text/javascript" >
     var positions = <?php echo json_encode($this->config->item('positions')); ?>;
     var stages = <?php echo json_encode($this->config->item('stages')); ?>;
+
+    // URIs
+    var urls = {
+        'teams': "<?php echo base_url('/api/teams/'); ?>"
+    };
+
+    // Filters
+    var filters = {
+        <?php if ($this->input->get('team')): ?>
+        'team': <?php echo $this->input->get('team'); ?>,
+        <?php endif; ?>
+    };
 </script>
 
 <?php $this->load->view('partials/footer', ['extra_js' => [

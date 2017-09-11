@@ -28,6 +28,11 @@ teams = (function () {
                 'lengthMenu': [5, 10, 20, 50],
                 'columns': [
                     {
+                        'data': 'team',
+                        'visible': false,
+                        'orderable': true
+                    },
+                    {
                         'title': 'NIF',
                         'data': 'nif',
                         'className': 'player-nif',
@@ -204,6 +209,60 @@ teams = (function () {
         });
     };
 
+    var loadFilters = function () {
+        var promises = [];
+
+        // Teams
+        var loadTeams = function () {
+            $.fn.dataTable.ext.search.push(
+                function( settings, data, dataIndex ) {
+                    var team = parseInt(data[0]);
+                    var currentTeam = parseInt($('#table-filter-team').val());
+
+                    if (currentTeam < 1) return true;
+                    else return currentTeam == team;
+                }
+            );
+
+            return new Promise(function (resolve, reject) {
+                $.ajax({
+                    'url': urls.teams,
+                    'method': 'get',
+                    'dataType': 'json'
+                }).done(function (data) {
+                    data = data || [];
+
+                    var select = $('<select>')
+                        .addClass('form-control table-filter')
+                        .attr('id', 'table-filter-team')
+                        .append($('<option>').val(0).text('-- Filtrar por equipo --'))
+                        .append(data.map(function (team) {
+                            return $('<option>').val(team.id).text(team.name)
+                        }));
+
+                    $('.dataTables_filter').prepend(select);
+
+                    if (filters.hasOwnProperty('team')) {
+                        setTimeout(function () {
+                            select.val(filters.team).change();
+                        }, 500);
+                    }
+
+                    resolve();
+
+                }).fail(function (jqXHR, textStatus) {
+                    reject(textStatus);
+                })
+            });
+        };
+
+
+        promises.push(loadTeams());
+
+
+        return Promise.all(promises);
+    };
+
     this.init = function () {
         loadData()
         .done(function (data) {
@@ -212,7 +271,13 @@ teams = (function () {
                     console.log(data);
                     console.log('loaded!');
 
-                    this.events();
+                    loadFilters().then(function () {
+                        this.events();
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+
+
 
                 }).catch(function (err) {
                     console.log(err);
@@ -326,6 +391,10 @@ teams = (function () {
         });
 
         tableObj.on('change', '.current-offsick-stage', refreshOffisckState);
+
+        $(document).on('change', '.table-filter', function () {
+            tableObj.draw();
+        })
     };
 
     return this;
