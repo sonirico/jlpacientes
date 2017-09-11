@@ -73,7 +73,7 @@ teams = (function () {
                                 if (nPlayers > 0) {
                                     var link = $('<a>')
                                         .attr({
-                                            'href': '/players/?team=' + data,
+                                            'href': '/players/?team=' + row.id,
                                             'title': 'Ver jugadores'
                                         })
                                         .addClass('btn btn-md btn-default')
@@ -130,8 +130,6 @@ teams = (function () {
         .done(function (data) {
             loadTable(data)
                 .then(function (data) {
-                    console.log(data);
-                    console.log('loaded!');
 
                     this.events();
 
