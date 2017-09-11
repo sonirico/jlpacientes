@@ -7,6 +7,7 @@ class Team extends CI_Model {
     public $logo;
 
     private $table_name = "teams";
+    private $view_name = "teams_with_players_count";
 
     public function get_by_id ($id, $assoc = true)
     {
@@ -60,7 +61,7 @@ class Team extends CI_Model {
 
     public function all () {
 
-        $query = $this->db->get($this->table_name);
+        $query = $this->db->get($this->view_name);
 
         return $query->result_array();
 

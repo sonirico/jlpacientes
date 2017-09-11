@@ -61,6 +61,36 @@ teams = (function () {
                         }
                     },
                     {
+                        'title': 'Nº jugadores',
+                        'data': 'n_players',
+                        'className': 'team-n-players text-center',
+                        'visible': true,
+                        'orderable': true,
+                        'render': function (data, type, row, meta) {
+                            var nPlayers = parseInt(data);
+
+                            if ('display' === type) {
+                                if (nPlayers > 0) {
+                                    var link = $('<a>')
+                                        .attr({
+                                            'href': '/players/?team=' + data,
+                                            'title': 'Ver jugadores'
+                                        })
+                                        .addClass('btn btn-md btn-default')
+                                        .append(
+                                            $('<i>').addClass('fa fa-users').html('&nbsp;'),
+                                            $('<span>').text(nPlayers)
+                                        );
+                                    return link.get(0).outerHTML;
+                                } else {
+                                    return '-- Sin jugadores --';
+                                }
+                            }
+
+                            return nPlayers;
+                        }
+                    },
+                    {
                         'title': 'Acciones',
                         'data': null,
                         'className': 'team-actions',
