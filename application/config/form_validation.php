@@ -37,7 +37,7 @@ $players_store = [
     [
         'field' => 'nif',
         'label' => 'NIF',
-        'rules' => 'trim|required|min_length[9]|max_length[12]|alpha_numeric|is_unique[players.nif]',
+        'rules' => 'trim|min_length[9]|max_length[12]|alpha_numeric|is_unique[players.nif]',
         'errors' => [
             'required' => 'El campo "%s" es obligatorio',
             'is_unique' => 'Ya existe un jugador con el %s especificado',
@@ -91,7 +91,7 @@ $players_update = [
     [
         'field' => 'nif',
         'label' => 'NIF',
-        'rules' => 'trim|required|min_length[9]|max_length[12]|alpha_numeric',
+        'rules' => 'trim|min_length[9]|max_length[12]|alpha_numeric',
         'errors' => [
             'required' => 'El campo "%s" es obligatorio',
             'is_unique' => 'Ya existe un jugador con el %s especificado',
