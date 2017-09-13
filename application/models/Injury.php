@@ -21,7 +21,7 @@ class Injury extends CI_Model {
         $this->load->helper('custom_date');
 
         $data = $this->input->post([
-            'happened_at', 'player', 'days_off', 'description', 'type'
+            'happened_at', 'player', 'days_off', 'description', 'type', 'cause', 'procedures', 'circumstance'
         ]);
         $data['happened_at'] = datestr_to_unix($data['happened_at']);
 

@@ -36,11 +36,28 @@ $teams = [
 ];
 
 $injuries = [
-    1 => 'Musculotendinosa',
-    2 => 'Articular',
-    3 => 'Óseas',
-    4 => 'Enfermedad',
-    5 => 'Otros'
+    'types' => [
+        1 => 'Musculotendinosa',
+        2 => 'Articular',
+        3 => 'Óseas',
+        4 => 'Enfermedad',
+        5 => 'Otras'
+    ],
+    'causes' => [
+        1 => 'Sobrecarga',
+        2 => 'Sobrestiramiento',
+        3 => 'Desequilibrio',
+        4 => 'Traumática',
+        5 => 'Descompensación',
+        6 => 'Otras'
+    ],
+    'circumstances' => [
+        1 => 'Entreamiento',
+        2 => 'Partido competición',
+        3 => 'Amistoso',
+        4 => 'Gimnasio',
+        5 => 'Otras'
+    ]
 ];
 
 $positions = [

@@ -102,9 +102,7 @@ $(function () {
                     'initComplete': function () {
                         resolve();
                     },
-                    'language': {
-                        'url': DT_LANGUAGE_URL,
-                    }
+                    'language': DT_LANGUAGE_OPTIONS
                 });
             });
         };

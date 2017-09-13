@@ -61,13 +61,37 @@ player_history = (function () {
                                 }
                             },
                             {
-                                title: 'Tipo de lesión',
+                                title: 'Tipo',
                                 data: 'type',
                                 className: 'injury-type',
                                 visible: true,
                                 orderable: true,
                                 render: function (data, type, row, meta) {
-                                    return injuryCategories[data];
+                                    return injuries.types[data];
+                                }
+                            },
+                            {
+                                title: 'Causa',
+                                data: 'cause',
+                                className: 'injury-cause',
+                                visible: true,
+                                orderable: true,
+                                render: function (data, type, row, meta) {
+                                    if (parseInt(data) > 0)
+                                        return injuries.causes[data];
+                                    else return '--';
+                                }
+                            },
+                            {
+                                title: 'Circunstancia',
+                                data: 'circumstance',
+                                className: 'injury-circumstance',
+                                visible: true,
+                                orderable: true,
+                                render: function (data, type, row, meta) {
+                                    if (parseInt(data) > 0)
+                                        return injuries.circumstances[data];
+                                    else return '--';
                                 }
                             },
                             {
@@ -77,8 +101,20 @@ player_history = (function () {
                                 visible: true,
                                 orderable: false,
                                 createdCell: function (cell, cellData) {
-
                                     $(cell).html(cellData);
+                                }
+                            },
+                            {
+                                title: '# Intervenciones',
+                                data: 'procedures',
+                                className: 'injury-procedures',
+                                visible: true,
+                                orderable: true,
+                                render: function (data, type, row, meta) {
+                                    if ('display' === type && ! data) {
+                                        return '--';
+                                    }
+                                    return data;
                                 }
                             },
                             {
@@ -117,9 +153,7 @@ player_history = (function () {
                         drawCallBack: function () {
                             resolve();
                         },
-                        language: {
-                            'url': DT_LANGUAGE_URL,
-                        }
+                        language: DT_LANGUAGE_OPTIONS
                     });
                 }
             });
@@ -130,11 +164,15 @@ player_history = (function () {
             injury: {},
             deleteModal: $('#injury-deletion-modal'),
             edit: function () {
+                console.log(this.injury);
                 injuryForm.find('[name="type"]').val(this.injury.type);
+                injuryForm.find('[name="cause"]').val(this.injury.cause);
+                injuryForm.find('[name="circumstance"]').val(this.injury.circumstance);
                 injuryForm.find('[name="happened_at"]').val(
                     moment.unix(this.injury.happened_at).format('DD/MM/Y')
                 );
                 injuryForm.find('[name="days_off"]').val(this.injury.days_off);
+                injuryForm.find('[name="procedures"]').val(this.injury.procedures);
                 injuryForm.find('.offsick-container').hide();
                 tinymce.get('injury-description').setContent(this.injury.description);
 
@@ -145,7 +183,7 @@ player_history = (function () {
             destroy: function () {
                 var dataContainer = this.deleteModal.find('.injury-data');
 
-                dataContainer.find('.type').text(injuryCategories[this.injury.type]);
+                dataContainer.find('.type').text(injuries.types[this.injury.type]);
                 dataContainer.find('.happened_at').text(moment.unix(this.injury.happened_at).format('DD/MM/Y'));
                 dataContainer.find('.days_off').text(this.injury.days_off);
                 dataContainer.find('.description').html(this.injury.description);
@@ -198,6 +236,9 @@ player_history = (function () {
                 'days_off': injuryForm.find('[name="days_off"]').val().trim(),
                 'description': tinymce.get('injury-description').getContent(),
                 'type': injuryForm.find('[name="type"]').val().trim(),
+                'cause': injuryForm.find('[name="cause"]').val().trim(),
+                'circumstance': injuryForm.find('[name="circumstance"]').val().trim(),
+                'procedures': injuryForm.find('[name="procedures"]').val().trim(),
                 'player': injuryForm.find('[name="player"]').val().trim()
             };
 
@@ -298,7 +339,7 @@ player_history = (function () {
 
             // Toggle offsick creation
             formContainer.find('[name="offsick"]').change(function () {
-                offsickContainer.toggle(500);
+                offsickContainer.stop(true, true).toggle(500);
             });
         }
     };
@@ -473,9 +514,7 @@ player_nutrition = (function () {
                         drawCallBack: function () {
                             resolve();
                         },
-                        language: {
-                            'url': DT_LANGUAGE_URL,
-                        }
+                        language: DT_LANGUAGE_OPTIONS
                     });
                 }
             });
@@ -497,7 +536,7 @@ player_nutrition = (function () {
             destroy: function () {
                 var dataContainer = this.deleteModal.find('.injury-data');
 
-                dataContainer.find('.type').text(injuryCategories[this.nutrition.type]);
+                dataContainer.find('.type').text(injuries.types[this.nutrition.type]);
                 dataContainer.find('.happened_at').text(moment.unix(this.nutrition.happened_at).format('DD/MM/Y'));
                 dataContainer.find('.days_off').text(this.nutrition.days_off);
                 dataContainer.find('.description').html(this.nutrition.description);
@@ -732,9 +771,7 @@ player_offsicks = (function () {
                         drawCallBack: function () {
                             resolve();
                         },
-                        language: {
-                            'url': DT_LANGUAGE_URL,
-                        },
+                        language: DT_LANGUAGE_OPTIONS,
                         initComplete: function () {
                             resolve();
                         }
@@ -861,9 +898,7 @@ player_sessions = (function () {
                         drawCallBack: function () {
                             resolve();
                         },
-                        language: {
-                            'url': DT_LANGUAGE_URL,
-                        }
+                        language: DT_LANGUAGE_OPTIONS
                     });
                 }
             });

@@ -63,6 +63,7 @@
     var SESSIONS_URL_DELETE = '<?php echo base_url('/api/sessions/<id>/delete'); ?>';
 
     var stages = <?php echo json_encode(config_item('stages')); ?>;
+    var injuries = <?php echo json_encode(config_item('injuries')); ?>;
 
 </script>
 

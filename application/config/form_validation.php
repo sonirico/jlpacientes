@@ -131,6 +131,22 @@ $injuries_store_and_update = [
         ]
     ],
     [
+        'field' => 'cause',
+        'label' => 'Causa de lesión',
+        'rules' => 'trim|required|is_natural_no_zero',
+        'errors' => [
+            'required' => 'El campo "%s" es obligatorio'
+        ]
+    ],
+    [
+        'field' => 'circumstance',
+        'label' => 'Circunstancia de lesión',
+        'rules' => 'trim|required|is_natural_no_zero',
+        'errors' => [
+            'required' => 'El campo "%s" es obligatorio'
+        ]
+    ],
+    [
         'field' => 'happened_at',
         'label' => 'Fecha de lesión',
         'rules' => 'trim|required|callback_happened_at_check',
@@ -144,6 +160,16 @@ $injuries_store_and_update = [
         'rules' => 'numeric',
         'errors' => [
             'numeric' => 'El campo "%s" es obligatorio'
+        ]
+    ],
+    [
+        'field' => 'procedures',
+        'label' => 'Intervenciones',
+        'rules' => 'numeric|greater_than_equal_to[0]|less_than_equal_to[99]',
+        'errors' => [
+            'numeric' => 'El campo "%s" es obligatorio',
+            'greater_than_equal_to' => 'El campo "%s" debe ser positivo',
+            'less_than_equal_to' => 'El campo "%s" debe ser menor que 100',
         ]
     ],
     [

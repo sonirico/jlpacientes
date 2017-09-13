@@ -12,19 +12,38 @@
             <input type="hidden" name="player" value="<?php echo $id; ?>" />
 
             <div class="row">
-                <div class="col-md-6 form-group">
+                <div class="col-md-3 form-group">
                     <label for="injury-category">Tipo de lesión</label>
                     <select class="form-control" id="injury-category" name="type">
                         <option value="0" selected>-- Selecciona una categoría de lesión --</option>
-                        <?php $ic = $this->config->item('injuries'); foreach ($ic as $it_id => $it_name): ?>
+                        <?php foreach ((config_item('injuries')['types']) as $it_id => $it_name): ?>
                             <option value="<?php echo $it_id; ?>">
                                 <?php echo $it_name; ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
-                    <script>
-                        var injuryCategories = <?php echo json_encode($ic); ?>;
-                    </script>
+                </div>
+                <div class="col-md-3 form-group">
+                    <label for="injury-cause">Causa</label>
+                    <select class="form-control" id="injury-cause" name="cause">
+                        <option value="0" selected>-- Selecciona una causa --</option>
+                        <?php foreach ((config_item('injuries')['causes']) as $it_id => $it_name): ?>
+                            <option value="<?php echo $it_id; ?>">
+                                <?php echo $it_name; ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="col-md-3 form-group">
+                    <label for="injury-circumstance">Circunstancia</label>
+                    <select class="form-control" id="injury-circumstance" name="circumstance">
+                        <option value="0" selected>-- Selecciona una circunstancia --</option>
+                        <?php foreach ((config_item('injuries')['circumstances']) as $it_id => $it_name): ?>
+                            <option value="<?php echo $it_id; ?>">
+                                <?php echo $it_name; ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
                 <div class="col-md-3 form-group">
                     <label for="injury-happened-at">Fecha de la lesión</label>
@@ -38,11 +57,20 @@
                         </span>
                     </div>
                 </div>
+            </div>
+            <div class="row" >
                 <div class="col-md-3 form-group">
                     <label for="injury-recover-days">Días de recuperación</label>
 
-                    <input type="number" min="1" max="365" class="form-control"
+                    <input type="number" min="1" max="365" value="1" class="form-control"
                            id="injury-recover-days" name="days_off"/>
+
+                </div>
+                <div class="col-md-3 form-group">
+                    <label for="injury-procedures">Nº Intervenciones</label>
+
+                    <input type="number" min="1" max="99" value="1" class="form-control"
+                           id="injury-recover-days" name="procedures"/>
 
                 </div>
             </div>
