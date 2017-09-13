@@ -36,10 +36,11 @@ $teams = [
 ];
 
 $injuries = [
-    1 => 'Muscular (Rotura fibrilar)',
-    2 => 'Ligamento (Esguince/Rotura)',
-    3 => 'Fractura',
-    4 => 'Otros'
+    1 => 'Musculotendinosa',
+    2 => 'Articular',
+    3 => 'Óseas',
+    4 => 'Enfermedad',
+    5 => 'Otros'
 ];
 
 $positions = [
