@@ -164,7 +164,7 @@ player_history = (function () {
             injury: {},
             deleteModal: $('#injury-deletion-modal'),
             edit: function () {
-                console.log(this.injury);
+
                 injuryForm.find('[name="type"]').val(this.injury.type);
                 injuryForm.find('[name="cause"]').val(this.injury.cause);
                 injuryForm.find('[name="circumstance"]').val(this.injury.circumstance);
@@ -291,7 +291,7 @@ player_history = (function () {
                     'data': data,
                     'dataType': 'json'
                 }).done(function (data) {
-                    console.log(data);
+                    
                     me.reload();
                 }).fail(function (jqXHR, textStatus) {
                     alert(textStatus);
@@ -1015,7 +1015,7 @@ player_sessions = (function () {
                     'data': data,
                     'dataType': 'json'
                 }).done(function (data) {
-                    console.log(data);
+
                     me.reload();
                 }).fail(function (jqXHR, textStatus) {
                     alert(textStatus);
