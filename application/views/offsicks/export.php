@@ -31,11 +31,11 @@
             border-radius: 3px;
         }
 
-        .team-container.active {
+        .team-container {
             page-break-before: always;
         }
 
-        .team-container.active.team-0 {
+        .team-container.team-0 {
             page-break-before: avoid;
         }
 
