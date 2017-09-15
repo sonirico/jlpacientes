@@ -194,7 +194,7 @@
                             <div class="width-100" >
                                 <div class="width-25" >
                                     <p class="label">Tipo:</p>
-                                    <?php if ($injuries_conf['types'][$i['type']]): ?>
+                                    <?php if (isset($injuries_conf['types'][$i['type']])): ?>
                                         <?php echo $injuries_conf['types'][$i['type']];?>
                                     <?php else: ?>
                                         --
@@ -202,7 +202,7 @@
                                 </div>
                                 <div class="width-25" >
                                     <p class="label">Causa:</p>
-                                    <?php if ($injuries_conf['causes'][$i['cause']]): ?>
+                                    <?php if (isset($injuries_conf['causes'][$i['cause']])): ?>
                                         <?php echo $injuries_conf['causes'][$i['cause']];?>
                                     <?php else: ?>
                                         --
@@ -210,7 +210,7 @@
                                 </div>
                                 <div class="width-25" >
                                     <p class="label">Circunstancia:</p>
-                                    <?php if ($injuries_conf['circumstances'][$i['circumstance']]): ?>
+                                    <?php if (isset($injuries_conf['circumstances'][$i['circumstance']])): ?>
                                         <?php echo $injuries_conf['circumstances'][$i['circumstance']];?>
                                     <?php else: ?>
                                         --
@@ -218,7 +218,7 @@
                                 </div>
                                 <div class="width-25" >
                                     <p class="label"># Intervenciones:</p>
-                                    <?php if ($i['procedures']): ?>
+                                    <?php if (isset($i['procedures'])): ?>
                                         <?php echo $i['procedures'];?>
                                     <?php else: ?>
                                         --
