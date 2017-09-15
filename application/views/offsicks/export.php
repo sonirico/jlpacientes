@@ -21,15 +21,6 @@
             color: grey;
         }
 
-        .container {
-            background-color:red;
-
-        }
-
-        .injury {
-            outline: orange solid 2px;
-        }
-
         .team-label {
             width: 100%;
             background-color: grey;
@@ -38,6 +29,14 @@
             font-weight: bold;
             font-size: 20px;
             border-radius: 3px;
+        }
+
+        .team-container.active {
+            page-break-before: always;
+        }
+
+        .team-container.active.team-0 {
+            page-break-before: avoid;
         }
 
 
@@ -115,14 +114,21 @@
             $stages = config_item('stages');
             $teams = $query->result_array();
             $players_injured = 0;
+            $teams_counter = 0;
+            $team_pagination_active = intval($ci->input->get('team_pagination'));
 
             foreach ($teams as $t)
             {
                 $team_id = $t['id'];
 
+
                 if ($ci->team->has_offsick_players($team_id))
                 {
                     ?>
+
+
+                    <div class="team-container <?php echo $team_pagination_active ? 'active' : ''; ?>
+                        <?php echo 'team-' . $teams_counter; ?>" >
 
                     <div class="width-100 team-label" >
                         Equipo: <?php echo $t['name']; ?>
@@ -195,12 +201,20 @@
                                 </div>
                             </div>
 
-                            <div class="separator"  />
+                            <div class="separator"  ></div>
                         </div>
 
                         <?php
+
+                        $teams_counter++;
                     }
-                }
+
+                    ?>
+
+                    </div>
+
+                    <?php
+                } // End if has_offsicks->players
             }
 
             if ($players_injured < 1)

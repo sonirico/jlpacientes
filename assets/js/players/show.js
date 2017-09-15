@@ -291,7 +291,7 @@ player_history = (function () {
                     'data': data,
                     'dataType': 'json'
                 }).done(function (data) {
-                    
+
                     me.reload();
                 }).fail(function (jqXHR, textStatus) {
                     alert(textStatus);
@@ -327,13 +327,11 @@ player_history = (function () {
                         }
                     })
                 ).then(function (data, textStatus, jqXHR) {
-                    console.log(textStatus);
 
                     if (200 === jqXHR.status ) {
                         me.reload();
                         InjuryForm.deleteModal.modal('hide');
                     }
-
                 });
             });
 

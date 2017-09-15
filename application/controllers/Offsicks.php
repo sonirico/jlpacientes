@@ -71,11 +71,17 @@ class Offsicks extends CI_Controller {
 
     public function export ()
     {
+        $debug = intval($this->input->get('debug'));
+
         $this->load->library('pdf');
 
         $html = $this->load->view('offsicks/export', [], true);
 
-        $this->pdf->generate($html);
+        if ($debug) {
+            echo $html;
+        } else {
+            $this->pdf->generate($html);
+        }
     }
 
     private function get_initial_data () {
