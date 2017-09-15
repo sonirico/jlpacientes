@@ -112,6 +112,8 @@
             $query = $ci->db->get('teams');
 
             $stages = config_item('stages');
+            $injuries_conf = config_item('injuries');
+
             $teams = $query->result_array();
             $players_injured = 0;
             $teams_counter = 0;
@@ -190,10 +192,45 @@
                             </div>
 
                             <div class="width-100" >
+                                <div class="width-25" >
+                                    <p class="label">Tipo:</p>
+                                    <?php if ($injuries_conf['types'][$i['type']]): ?>
+                                        <?php echo $injuries_conf['types'][$i['type']];?>
+                                    <?php else: ?>
+                                        --
+                                    <?php endif; ?>
+                                </div>
+                                <div class="width-25" >
+                                    <p class="label">Causa:</p>
+                                    <?php if ($injuries_conf['causes'][$i['cause']]): ?>
+                                        <?php echo $injuries_conf['causes'][$i['cause']];?>
+                                    <?php else: ?>
+                                        --
+                                    <?php endif; ?>
+                                </div>
+                                <div class="width-25" >
+                                    <p class="label">Circunstancia:</p>
+                                    <?php if ($injuries_conf['circumstances'][$i['circumstance']]): ?>
+                                        <?php echo $injuries_conf['circumstances'][$i['circumstance']];?>
+                                    <?php else: ?>
+                                        --
+                                    <?php endif; ?>
+                                </div>
+                                <div class="width-25" >
+                                    <p class="label"># Intervenciones:</p>
+                                    <?php if ($i['procedures']): ?>
+                                        <?php echo $i['procedures'];?>
+                                    <?php else: ?>
+                                        --
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+
+                            <div class="width-100" >
                                 <p class="label">Diagnóstico:</p>
 
                                 <div class="diagnosis" >
-                                    <?php if ($i): ?>
+                                    <?php if ($i && strlen(trim($i['description'])) > 0) : ?>
                                         <?=$i['description'];?>
                                     <?php else: ?>
                                         <i>Sin lesión asociada</i>
